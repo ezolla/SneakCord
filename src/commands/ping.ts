@@ -1,3 +1,4 @@
+const Discord = require("discord.js");
 const { Command } = require("discord-akairo");
 
 class PingCommand extends Command {
@@ -7,8 +8,12 @@ class PingCommand extends Command {
     });
   }
 
+  pingEmbed = new Discord.MessageEmbed()
+    .setColor("#5761C9")
+    .setTitle(":ping_pong: Pong!");
+
   exec(message: any) {
-    return message.reply("Pong!");
+    return message.channel.send(this.pingEmbed);
   }
 }
 
