@@ -30,6 +30,7 @@ class MyClient extends AkairoClient {
     // Enable handlers
     this.commandHandler.useListenerHandler(this.listenerHandler);
     this.listenerHandler.loadAll();
+    this.commandHandler.loadAll();
   }
 }
 
