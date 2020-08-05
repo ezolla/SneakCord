@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { AkairoClient } = require("discord-akairo");
+const { AkairoClient, CommandHandler } = require("discord-akairo");
 
 class MyClient extends AkairoClient {
   constructor() {
@@ -11,6 +11,15 @@ class MyClient extends AkairoClient {
         disableMentions: "everyone",
       }
     );
+
+    // Command handler
+    this.commandHandler = new CommandHandler(this, {
+      directory: "./src/commands/",
+      prefix: "!",
+    });
+
+    // Load all commands
+    this.commandHandler.loadAll();
   }
 }
 
