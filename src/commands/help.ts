@@ -24,7 +24,7 @@ class HelpCommand extends Command {
   pages = [this.pageOne, this.pageTwo, this.pageThree];
 
   exec(message: any) {
-    return message.channel.send(paginationEmbed(message, this.pages));
+    return paginationEmbed(message, this.pages);
   }
 }
 
