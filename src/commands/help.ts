@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 const { Command } = require("discord-akairo");
 const paginationEmbed = require("discord.js-pagination");
 
-class PingCommand extends Command {
+class HelpCommand extends Command {
   constructor() {
     super("help", {
       aliases: ["help"],
@@ -28,5 +28,5 @@ class PingCommand extends Command {
   }
 }
 
-module.exports = PingCommand;
+module.exports = HelpCommand;
 export {};
