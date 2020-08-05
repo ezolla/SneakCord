@@ -1,5 +1,9 @@
 require("dotenv").config();
-const { AkairoClient, CommandHandler } = require("discord-akairo");
+const {
+  AkairoClient,
+  CommandHandler,
+  ListenerHandler,
+} = require("discord-akairo");
 
 class MyClient extends AkairoClient {
   constructor() {
@@ -18,8 +22,14 @@ class MyClient extends AkairoClient {
       prefix: "!",
     });
 
-    // Load all commands
-    this.commandHandler.loadAll();
+    // Listener handler
+    this.listenerHandler = new ListenerHandler(this, {
+      directory: "./src/listeners/",
+    });
+
+    // Enable handlers
+    this.commandHandler.useListenerHandler(this.listenerHandler);
+    this.listenerHandler.loadAll();
   }
 }
 
