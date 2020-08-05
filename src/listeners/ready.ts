@@ -10,6 +10,11 @@ class ReadyListener extends Listener {
 
   exec() {
     console.log("SneakCord is running!");
+
+    this.client.user.setStatus("dnd");
+    this.client.user.setActivity("@SneakCord on Twitter", {
+      type: "PLAYING",
+    });
   }
 }
 
