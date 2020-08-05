@@ -11,9 +11,15 @@
   "author": "SneakCord [sneakcord@gmail.com]",
   "license": "ISC",
   "devDependencies": {
+    "@types/dotenv": "^8.2.0",
     "@types/nodemon": "^1.19.0",
     "nodemon": "^2.0.4",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
+  },
+  "dependencies": {
+    "discord-akairo": "^8.0.0",
+    "discord.js": "^12.2.0",
+    "dotenv": "^8.2.0"
   }
 }
