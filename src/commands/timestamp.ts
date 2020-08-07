@@ -11,7 +11,6 @@ class TimestampCommand extends Command {
         {
           id: "timestamp",
           type: "string",
-          match: "content",
         },
       ],
     });
