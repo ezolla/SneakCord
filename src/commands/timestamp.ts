@@ -19,9 +19,6 @@ class TimestampCommand extends Command {
 
   exec(message: any, args: any) {
     if (args.timestamp) {
-      const time = new Date(args.timestamp);
-      console.log(time);
-
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .addFields(
@@ -48,7 +45,6 @@ const getUnixTimestamp = (timestamp: any) => {
   const dateBits = Number(id >> 22n);
 
   const unix = dateBits + discordEpoch;
-  console.log(`UNIX type: ${typeof unix}`);
 
   return unix.toString();
 };
@@ -59,7 +55,6 @@ const getIsoTimestamp = (timestamp: any) => {
 
   const unix = dateBits + discordEpoch;
   const iso = new Date(unix).toISOString();
-  console.log(`ISO type: ${typeof iso}`);
 
   return iso;
 };
