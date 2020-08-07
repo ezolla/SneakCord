@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "es6",
+    "target": "ESNext",
     "module": "commonjs",
     "lib": [
       "dom",
       "es6",
       "es2017",
-      "esnext.asynciterable"
+      "esnext.asynciterable",
     ],
     "sourceMap": true,
     "outDir": "./dist",
