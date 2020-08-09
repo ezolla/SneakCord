@@ -26,6 +26,7 @@
     "discord.js-pagination": "^1.0.2",
     "node-fetch": "^2.6.0",
     "node-geocoder": "^3.27.0",
+    "shoe-size-converter": "0.0.2",
     "twit": "^2.2.11"
   }
 }
