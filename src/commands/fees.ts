@@ -18,99 +18,93 @@ class FeesCommand extends Command {
     if (args.price) {
       const results = calculateFees(args.price);
 
-      const embed = new Discord.MessageEmbed()
-        .setColor("#5761C9")
-        .setTitle("Fees")
-        .addFields(
-          {
-            name: "Paypal (3.9% + $0.30)",
-            value: "$" + results.paypal.toFixed(2).toString(),
-            inline: true,
-          },
-          {
-            name: "Ebay (10% + 2.9%)",
-            value: "$" + results.ebay.toFixed(2).toString(),
-            inline: true,
-          },
-          {
-            name: "Goat (9.5% + $5)",
-            value: "$" + results.goat.toFixed(2).toString(),
-            inline: true,
-          },
-          {
-            name: "Grailed (6% + 2.9%)",
-            value: "$" + results.grailed.toFixed(2).toString(),
-            inline: true,
-          },
-          {
-            name: "Stockx Level 1 (9.5%)",
-            value: "$" + results.stockx1.toFixed(2).toString(),
-            inline: true,
-          },
-          {
-            name: "Stockx Level 2 (9.0%)",
-            value: "$" + results.stockx2.toFixed(2).toString(),
-            inline: true,
-          },
-          {
-            name: "Stockx Level 3 (8.5%)",
-            value: "$" + results.stockx3.toFixed(2).toString(),
-            inline: true,
-          },
-          {
-            name: "Stockx Level 4 (8.0%)",
-            value: "$" + results.stockx4.toFixed(2).toString(),
-            inline: true,
-          }
-        );
+      const embed = new Discord.MessageEmbed().setColor("#5761C9").addFields(
+        {
+          name: "Paypal (3.9% + $0.30)",
+          value: "$" + results.paypal.toFixed(2).toString(),
+          inline: true,
+        },
+        {
+          name: "Ebay (10% + 2.9%)",
+          value: "$" + results.ebay.toFixed(2).toString(),
+          inline: true,
+        },
+        {
+          name: "Goat (9.5% + $5)",
+          value: "$" + results.goat.toFixed(2).toString(),
+          inline: true,
+        },
+        {
+          name: "Grailed (6% + 2.9%)",
+          value: "$" + results.grailed.toFixed(2).toString(),
+          inline: true,
+        },
+        {
+          name: "Stockx Level 1 (9.5%)",
+          value: "$" + results.stockx1.toFixed(2).toString(),
+          inline: true,
+        },
+        {
+          name: "Stockx Level 2 (9.0%)",
+          value: "$" + results.stockx2.toFixed(2).toString(),
+          inline: true,
+        },
+        {
+          name: "Stockx Level 3 (8.5%)",
+          value: "$" + results.stockx3.toFixed(2).toString(),
+          inline: true,
+        },
+        {
+          name: "Stockx Level 4 (8.0%)",
+          value: "$" + results.stockx4.toFixed(2).toString(),
+          inline: true,
+        }
+      );
 
       return message.channel.send(embed);
     } else {
-      const embed = new Discord.MessageEmbed()
-        .setColor("#5761C9")
-        .setTitle("Fees")
-        .addFields(
-          {
-            name: "Paypal",
-            value: "3.9% + $0.30",
-            inline: true,
-          },
-          {
-            name: "Ebay",
-            value: "10% + 2.9%",
-            inline: true,
-          },
-          {
-            name: "Goat",
-            value: "9.5% + $5",
-            inline: true,
-          },
-          {
-            name: "Grailed (6% + 2.9%)",
-            value: "6% + 2.9%",
-            inline: true,
-          },
-          {
-            name: "Stockx Level 1",
-            value: "9.5%",
-            inline: true,
-          },
-          {
-            name: "Stockx Level 2",
-            value: "9.5%",
-            inline: true,
-          },
-          {
-            name: "Stockx Level 3",
-            value: "8.5%",
-            inline: true,
-          },
-          {
-            name: "Stockx Level 4",
-            value: "8.0%",
-            inline: true,
-          }
-        );
+      const embed = new Discord.MessageEmbed().setColor("#5761C9").addFields(
+        {
+          name: "Paypal",
+          value: "3.9% + $0.30",
+          inline: true,
+        },
+        {
+          name: "Ebay",
+          value: "10% + 2.9%",
+          inline: true,
+        },
+        {
+          name: "Goat",
+          value: "9.5% + $5",
+          inline: true,
+        },
+        {
+          name: "Grailed (6% + 2.9%)",
+          value: "6% + 2.9%",
+          inline: true,
+        },
+        {
+          name: "Stockx Level 1",
+          value: "9.5%",
+          inline: true,
+        },
+        {
+          name: "Stockx Level 2",
+          value: "9.5%",
+          inline: true,
+        },
+        {
+          name: "Stockx Level 3",
+          value: "8.5%",
+          inline: true,
+        },
+        {
+          name: "Stockx Level 4",
+          value: "8.0%",
+          inline: true,
+        }
+      );
 
       return message.channel.send(embed);
     }
