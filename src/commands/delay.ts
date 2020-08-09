@@ -20,7 +20,7 @@ class DelayCommand extends Command {
 
   exec(message: any, args: any) {
     if (args.tasks && args.proxies) {
-      const delayEmbed = new Discord.MessageEmbed()
+      const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setTitle(
           `Our recommended delay is ${(
@@ -29,7 +29,13 @@ class DelayCommand extends Command {
           ).toFixed(0)}ms`
         );
 
-      return message.channel.send(delayEmbed);
+      return message.channel.send(embed);
+    } else {
+      const embed = new Discord.MessageEmbed()
+        .setColor("#5761C9")
+        .setTitle("Must provide # of tasks and proxies");
+
+      return message.channel.send(embed);
     }
   }
 }
