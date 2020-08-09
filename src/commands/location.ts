@@ -25,7 +25,7 @@ const geocoder = NodeGeocoder(options);
 class LocationCommand extends Command {
   constructor() {
     super("location", {
-      aliases: ["location"],
+      aliases: ["location", "coords"],
       args: [
         {
           id: "location",
