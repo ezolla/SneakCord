@@ -1,4 +1,3 @@
-require("dotenv").config();
 const {
   AkairoClient,
   CommandHandler,
@@ -35,4 +34,4 @@ class MyClient extends AkairoClient {
 }
 
 const client = new MyClient();
-client.login(process.env.TOKEN);
+client.login("NzQwNDI1MjIxODYxMDE1NTcy.Xyo0uQ.ecRS65_njM_2i9SZHH4QctHaPfg");
