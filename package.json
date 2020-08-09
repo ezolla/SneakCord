@@ -13,6 +13,7 @@
   "devDependencies": {
     "@types/dotenv": "^8.2.0",
     "@types/node-fetch": "^2.5.7",
+    "@types/node-geocoder": "^3.24.1",
     "@types/nodemon": "^1.19.0",
     "@types/twit": "^2.2.25",
     "nodemon": "^2.0.4",
@@ -26,6 +27,7 @@
     "discord.js-pagination": "^1.0.2",
     "dotenv": "^8.2.0",
     "node-fetch": "^2.6.0",
+    "node-geocoder": "^3.27.0",
     "twit": "^2.2.11"
   }
 }
