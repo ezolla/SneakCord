@@ -30,8 +30,6 @@ class GuildCreateListener extends Listener {
 
       if (result.status === 200) {
         console.log(`Status: ${result.status}`);
-
-        // todo: Send successful server verification webhook
       } else {
         console.log("Failed authenticating server");
 
@@ -40,8 +38,6 @@ class GuildCreateListener extends Listener {
           .leave()
           .then((guild: any) => console.log(`Left the guild ${guild}`))
           .catch(console.error);
-
-        // todo: Send failed server verification webhook
       }
     } else {
       console.log(`Error: ${error}`);
