@@ -19,3 +19,4 @@ class ReadyListener extends Listener {
 }
 
 module.exports = ReadyListener;
+export {};
