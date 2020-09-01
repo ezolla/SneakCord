@@ -22,7 +22,7 @@
   "dependencies": {
     "@techhof-ab/currency-converter": "^2.0.0",
     "discord-akairo": "^8.0.0",
-    "discord.js": "^12.2.0",
+    "discord.js": "^12.3.1",
     "discord.js-pagination": "^1.0.2",
     "node-fetch": "^2.6.0",
     "node-geocoder": "^3.27.0",
