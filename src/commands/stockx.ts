@@ -111,16 +111,16 @@ const createEmbed = (data: any) => {
     embed.addField("Brand", data.brand, true);
   }
   if (data.lowest_ask) {
-    embed.addField("Lowest Ask", data.lowest_ask, true);
+    embed.addField("Lowest Ask", `$${data.lowest_ask}`, true);
   }
   if (data.highest_bid) {
-    embed.addField("Highest Bid", data.highest_bid, true);
+    embed.addField("Highest Bid", `$${data.highest_bid}`, true);
   }
   if (data.deadstock_sold) {
     embed.addField("Total Sold", data.deadstock_sold, true);
   }
   if (data.last_sale) {
-    embed.addField("Last Sale", data.last_sale, true);
+    embed.addField("Last Sale", `$${data.last_sale}`, true);
   }
 
   // Return structured embed
