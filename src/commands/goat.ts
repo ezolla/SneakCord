@@ -19,11 +19,10 @@ class GoatCommand extends Command {
 
   async exec(message: any, args: any) {
     if (args.search) {
+      let link: any, prices, data;
+
       // Parse search term
       let searchInjection = await args.search.replace(" ", "%20");
-      console.log(`Search injection: ${searchInjection}`);
-
-      let link: any, prices, data;
 
       // Fetch all data
       try {
@@ -41,7 +40,6 @@ class GoatCommand extends Command {
 
       // Create and structure embed
       let embed = await createEmbed(link!, prices, data);
-      console.log(embed);
 
       // Sending embed to requester channel
       message.channel.send(embed);
@@ -73,16 +71,6 @@ const getLink = async (search: string) => {
   // Checking for valuable information
   if (data.results[0].hits[0]) {
     if (data.results[0].hits[0].lowest_price_cents_usd / 100 != 0) {
-      // Logging valuable information
-      console.log(
-        `Link: https://www.goat.com/sneakers/${data.results[0].hits[0].slug}`
-      );
-      console.log(
-        `Lowest resell price: ${
-          data.results[0].hits[0].lowest_price_cents_usd / 100
-        }`
-      );
-
       // Returning link
       return `https://www.goat.com/sneakers/${data.results[0].hits[0].slug}`;
     }
