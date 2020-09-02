@@ -49,7 +49,7 @@ class StadiumGoodsCommand extends Command {
 module.exports = StadiumGoodsCommand;
 export {};
 
-// Fetching product link
+// Fetctes product link
 const getLink = async (search: string) => {
   // Sending POST request to endpoint
   const response = await got.post("https://graphql.stadiumgoods.com/graphql", {
@@ -66,15 +66,18 @@ const getLink = async (search: string) => {
     responseType: "json",
   });
 
+  // Checking for product links
   if (response.body.data.configurableProducts.edges[0]) {
     // Returning product link
     return response.body.data.configurableProducts.edges[0].node.pdpUrl;
   }
 };
 
+// Fetches price data
 const getPrices = async (link: string) => {
   let priceMap: any = {};
 
+  // Sending POST request to product endpoint
   const response = await fetch(link, {
     method: "POST",
     headers: {
@@ -85,12 +88,15 @@ const getPrices = async (link: string) => {
     body: "",
   });
 
+  // Checking for successful status
   if (response.status === 200) {
     // Translating response to text
     const data = await response.text();
 
-    // Scraping frontend sizes and prices
+    // Loading HTML into cheerio
     const $ = await cheerio.load(data);
+
+    // Scraping frontend sizes and prices
     await $(".product-sizes__input").map((i: any, product: any) => {
       if ($(product).attr("data-stock") == "true") {
         let size = $(product).attr("data-size");
