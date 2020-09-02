@@ -1,0 +1,144 @@
+const Discord = require("discord.js");
+const { Command } = require("discord-akairo");
+const fetch = require("node-fetch");
+const got = require("got");
+const cheerio = require("cheerio");
+const Table = require("easy-table");
+
+class StadiumGoodsCommand extends Command {
+  constructor() {
+    super("stadiumgoods", {
+      aliases: ["stadiumgoods", "stadium-goods", "stadium", "sg"],
+      args: [
+        {
+          id: "search",
+          type: "string",
+          match: "content",
+        },
+      ],
+    });
+  }
+
+  async exec(message: any, args: any) {
+    if (args.search) {
+      let link, prices: any;
+
+      // Parse search term
+      let searchInjection = await args.search.replace(/ /g, "%20");
+
+      // Fetch all data
+      try {
+        // Fetching product link
+        link = await getLink(searchInjection);
+
+        // Fetching product prices
+        prices = await getPrices(link);
+      } catch (err) {
+        console.log(err);
+      }
+
+      // Create and structure embed
+      let embed = await createEmbed(link, prices);
+
+      // Sending embed to requester channel
+      message.channel.send(embed);
+    }
+  }
+}
+
+module.exports = StadiumGoodsCommand;
+export {};
+
+// Fetching product link
+const getLink = async (search: string) => {
+  // Sending POST request to endpoint
+  const response = await got.post("https://graphql.stadiumgoods.com/graphql", {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Safari/605.1.15",
+      "Content-Type": "application/json",
+    },
+    body:
+      '{"operationId":"sg-front/cached-a41eba558ae6325f072164477a24d3c2","variables":{"categorySlug":"","initialSearchQuery":"' +
+      search +
+      '","initialSort":"RELEVANCE","includeUnavailableProducts":null,"filteringOnCategory":false,"filteringOnBrand":false,"filteringOnMensSizes":false,"filteringOnKidsSizes":false,"filteringOnWomensSizes":false,"filteringOnApparelSizes":false,"filteringOnGender":false,"filteringOnColor":false,"filteringOnPriceRange":false},"locale":"USA_USD"}',
+    http2: true,
+    responseType: "json",
+  });
+
+  if (response.body.data.configurableProducts.edges[0]) {
+    // Returning product link
+    return response.body.data.configurableProducts.edges[0].node.pdpUrl;
+  }
+};
+
+const getPrices = async (link: string) => {
+  let priceMap: any = {};
+
+  const response = await fetch(link, {
+    method: "POST",
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Safari/605.1.15",
+      "Content-Type": "application/json",
+    },
+    body: "",
+  });
+
+  if (response.status === 200) {
+    // Translating response to text
+    const data = await response.text();
+
+    // Scraping frontend sizes and prices
+    const $ = await cheerio.load(data);
+    await $(".product-sizes__input").map((i: any, product: any) => {
+      if ($(product).attr("data-stock") == "true") {
+        let size = $(product).attr("data-size");
+
+        if (size[size.length - 1] == "W") {
+          size = size.substring(0, size.length - 1);
+        }
+        priceMap[size] = parseInt($(product).attr("data-amount")) / 100;
+      }
+
+      if (i == $(".product-sizes__input").length - 1) {
+      }
+    });
+  }
+
+  // Returning map of sizes and prices
+  return priceMap;
+};
+
+// Structures embed
+const createEmbed = async (link: string, prices: any) => {
+  let tableData = [];
+
+  // Create embed
+  const embed = new Discord.MessageEmbed()
+    .setColor("#5761C9")
+    .setTitle("Stadium Goods Results")
+    .setURL(link);
+
+  // Parsing size and price data into table
+  if (prices) {
+    for (let size in prices) {
+      if (prices.hasOwnProperty(size)) {
+        tableData.push({ size: size, price: `$${prices[size]}` });
+      }
+    }
+
+    let t = new Table();
+
+    tableData.forEach((pair: any) => {
+      t.cell("Size", pair.size);
+      t.cell("Price", pair.price);
+      t.newRow();
+    });
+
+    embed.addField("Live Market", `\`\`\`${t}\`\`\``, false);
+  }
+
+  // Returning built embed
+  return embed;
+};
