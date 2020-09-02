@@ -11,6 +11,7 @@
   "author": "SneakCord [sneakcord@gmail.com]",
   "license": "ISC",
   "devDependencies": {
+    "@types/easy-table": "0.0.32",
     "@types/node-fetch": "^2.5.7",
     "@types/node-geocoder": "^3.24.1",
     "@types/nodemon": "^1.19.0",
@@ -24,6 +25,7 @@
     "discord-akairo": "^8.0.0",
     "discord.js": "^12.3.1",
     "discord.js-pagination": "^1.0.2",
+    "easy-table": "^1.1.1",
     "node-fetch": "^2.6.0",
     "node-geocoder": "^3.27.0",
     "shoe-size-converter": "0.0.2",
