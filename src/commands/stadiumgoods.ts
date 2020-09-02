@@ -123,7 +123,7 @@ const createEmbed = async (link: string, prices: any) => {
   // Create embed
   const embed = new Discord.MessageEmbed()
     .setColor("#5761C9")
-    .setTitle("Stadium Goods Results")
+    .setTitle("Stadium Goods Search Results")
     .setURL(link);
 
   // Parsing size and price data into table
