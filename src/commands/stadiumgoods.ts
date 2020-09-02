@@ -4,6 +4,7 @@ const fetch = require("node-fetch");
 const got = require("got");
 const cheerio = require("cheerio");
 const Table = require("easy-table");
+const randomUseragent = require("random-useragent");
 
 class StadiumGoodsCommand extends Command {
   constructor() {
@@ -54,8 +55,7 @@ const getLink = async (search: string) => {
   // Sending POST request to endpoint
   const response = await got.post("https://graphql.stadiumgoods.com/graphql", {
     headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Safari/605.1.15",
+      "User-Agent": await randomUseragent.getRandom(),
       "Content-Type": "application/json",
     },
     body:
@@ -81,8 +81,7 @@ const getPrices = async (link: string) => {
   const response = await fetch(link, {
     method: "POST",
     headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_2) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/13.0.4 Safari/605.1.15",
+      "User-Agent": await randomUseragent.getRandom(),
       "Content-Type": "application/json",
     },
     body: "",

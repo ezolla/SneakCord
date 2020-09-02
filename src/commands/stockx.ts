@@ -1,6 +1,7 @@
 const Discord = require("discord.js");
 const { Command } = require("discord-akairo");
 const fetch = require("node-fetch");
+const randomUseragent = require("random-useragent");
 
 class StockxCommand extends Command {
   constructor() {
@@ -16,21 +17,20 @@ class StockxCommand extends Command {
     });
   }
 
-  exec(message: any, args: any) {
+  async exec(message: any, args: any) {
     if (args.search) {
       // Parse search term
-      let searchInjection = args.search.replace(" ", "%20");
+      let searchInjection = await args.search.replace(" ", "%20");
 
       // Search product
-      fetch(
+      await fetch(
         "https://xw7sbct9v6-dsn.algolia.net/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.29.0&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6bfb5abee4dcd8cea8f0ca1ca085c2b3",
         {
           method: "post",
           headers: {
             Accept: "application/json",
             "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent":
-              "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+            "User-Agent": await randomUseragent.getRandom(),
           },
           body: `{"params":"query=${searchInjection}&hitsPerPage=20&facets=*"}`,
         }

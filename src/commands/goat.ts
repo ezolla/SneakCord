@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const { Command } = require("discord-akairo");
 const fetch = require("node-fetch");
 const Table = require("easy-table");
+const randomUseragent = require("random-useragent");
 
 class GoatCommand extends Command {
   constructor() {
@@ -58,8 +59,7 @@ const getLink = async (search: string) => {
     {
       method: "POST",
       headers: {
-        "User-Agent":
-          "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+        "User-Agent": await randomUseragent.getRandom(),
         "Content-Type": "application/json",
       },
       body: `{"requests":[{"indexName":"product_variants_v2","params":"distinct=true&maxValuesPerFacet=1&page=0&query=${search}&facets=%5B%22instant_ship_lowest_price_cents"}]}`,
@@ -92,8 +92,7 @@ const getPrices = async (link: string) => {
   const response = await fetch(apiEndpoint, {
     method: "GET",
     headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+      "User-Agent": await randomUseragent.getRandom(),
       "Content-Type": "application/json",
     },
   });
@@ -128,8 +127,7 @@ const getData = async (link: string) => {
   const response = await fetch(apiEndpoint, {
     method: "GET",
     headers: {
-      "User-Agent":
-        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.99 Safari/537.36",
+      "User-Agent": await randomUseragent.getRandom(),
       "Content-Type": "application/json",
     },
   });
