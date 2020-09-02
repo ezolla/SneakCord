@@ -22,7 +22,7 @@ class StadiumGoodsCommand extends Command {
 
   async exec(message: any, args: any) {
     if (args.search) {
-      let link, prices: any;
+      let link, data, prices: any;
 
       // Parse search term
       let searchInjection = await args.search.replace(/ /g, "%20");
@@ -32,6 +32,9 @@ class StadiumGoodsCommand extends Command {
         // Fetching product link
         link = await getLink(searchInjection);
 
+        // Fetching product data
+        data = await getData(searchInjection);
+
         // Fetching product prices
         prices = await getPrices(link);
       } catch (err) {
@@ -39,7 +42,7 @@ class StadiumGoodsCommand extends Command {
       }
 
       // Create and structure embed
-      let embed = await createEmbed(link, prices);
+      let embed = await createEmbed(link, data, prices);
 
       // Sending embed to requester channel
       message.channel.send(embed);
@@ -78,6 +81,35 @@ const getLink = async (search: string) => {
   if (response.body.data.configurableProducts.edges[0]) {
     // Returning product link
     return response.body.data.configurableProducts.edges[0].node.pdpUrl;
+  }
+};
+
+// Fetches product data
+const getData = async (search: string) => {
+  // Send POST request to product endpoint
+  const response = await fetch(
+    "https://xw7sbct9v6-dsn.algolia.net/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.29.0&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6bfb5abee4dcd8cea8f0ca1ca085c2b3",
+    {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": await randomUseragent.getRandom(),
+      },
+      body: `{"params":"query=${search}&hitsPerPage=20&facets=*"}`,
+    }
+  );
+
+  // Checking for successful request
+  if (response.status === 200) {
+    // Translating response to JSON
+    const data = await response.json();
+
+    // Checking if products were returned
+    if (data.hits[0]) {
+      // Returning product data
+      return data.hits[0];
+    }
   }
 };
 
@@ -124,14 +156,36 @@ const getPrices = async (link: string) => {
 };
 
 // Structures embed
-const createEmbed = async (link: string, prices: any) => {
+const createEmbed = async (link: string, data: any, prices: any) => {
   let tableData = [];
 
   // Create embed
   const embed = new Discord.MessageEmbed()
     .setColor("#5761C9")
-    .setTitle("Stadium Goods Search Results")
-    .setURL(link);
+    .setTitle(data.name)
+    .setURL(link)
+    .setThumbnail(data.media.imageUrl);
+
+  // Checking and inputting dynamic data
+  if (data.traits) {
+    data.traits.forEach((item: any) => {
+      if (item.name === "Retail Price") {
+        embed.addField("Retail", `$${item.value}`, true);
+      }
+    });
+  }
+  if (data.style_id) {
+    embed.addField("SKU", data.style_id, true);
+  }
+  if (data.colorway) {
+    embed.addField("Colorway", data.colorway, true);
+  }
+  if (data.traits[3].value) {
+    embed.addField("Release", data.traits[3].value, true);
+  }
+  if (data.brand) {
+    embed.addField("Brand", data.brand, true);
+  }
 
   // Parsing size and price data into table
   if (prices) {
