@@ -1,7 +1,9 @@
 const Discord = require("discord.js");
 const { Command } = require("discord-akairo");
 const fetch = require("node-fetch");
+const got = require("got");
 const randomUseragent = require("random-useragent");
+const Table = require("easy-table");
 
 class StockxCommand extends Command {
   constructor() {
@@ -19,7 +21,7 @@ class StockxCommand extends Command {
 
   async exec(message: any, args: any) {
     if (args.search) {
-      let data: any;
+      let data, prices: any;
 
       // Parse search term
       let searchInjection = await args.search.replace(/ /g, "%20");
@@ -28,12 +30,15 @@ class StockxCommand extends Command {
       try {
         // Fetching product data
         data = await getData(searchInjection);
+
+        // Fetching pricing data
+        prices = await getPrices(data.url);
       } catch (err) {
         console.log(err);
       }
 
       // Create and structure embed
-      let embed = await createEmbed(data);
+      let embed = await createEmbed(data, prices);
 
       // Sending embed to requester channel
       message.channel.send(embed);
@@ -60,8 +65,6 @@ const getData = async (search: string) => {
     {
       method: "post",
       headers: {
-        Accept: "application/json",
-        "Content-Type": "application/x-www-form-urlencoded",
         "User-Agent": await randomUseragent.getRandom(),
       },
       body: `{"params":"query=${search}&hitsPerPage=20&facets=*"}`,
@@ -81,8 +84,45 @@ const getData = async (search: string) => {
   }
 };
 
+// Fetches product prices
+const getPrices = async (slug: string) => {
+  let priceMap: any = {};
+
+  // Sending GET request to product market endpoint
+  const response = await got(
+    `https://stockx.com/api/products/${slug}?includes=market`,
+    {
+      headers: {
+        "User-Agent": await randomUseragent.getRandom(),
+      },
+      http2: true,
+    }
+  );
+
+  // Translating response to JSON
+  const data = await JSON.parse(response.body);
+
+  // Load price map with size:price pairs
+  Object.keys(data.Product.children).forEach(function (key) {
+    if (data.Product.children[key].market.lowestAsk == 0) return;
+
+    // Removing "W" if sizing is in womens
+    let size = data.Product.children[key].shoeSize;
+    if (size[size.length - 1] == "W") {
+      size = size.substring(0, size.length - 1);
+    }
+
+    priceMap[size] = data.Product.children[key].market.lowestAsk;
+  });
+
+  // Returning map of sizes and prices
+  return priceMap;
+};
+
 // Structures embed
-const createEmbed = (data: any) => {
+const createEmbed = (data: any, prices: any) => {
+  let tableData = [];
+
   // Create embed
   const embed = new Discord.MessageEmbed()
     .setColor("#5761C9")
@@ -121,6 +161,25 @@ const createEmbed = (data: any) => {
   }
   if (data.last_sale) {
     embed.addField("Last Sale", `$${data.last_sale}`, true);
+  }
+
+  // Parsing size and price data into table
+  if (prices) {
+    for (let size in prices) {
+      if (prices.hasOwnProperty(size)) {
+        tableData.push({ size: size, price: `$${prices[size]}` });
+      }
+    }
+
+    let t = new Table();
+
+    tableData.forEach((pair: any) => {
+      t.cell("Size", pair.size);
+      t.cell("Price", pair.price);
+      t.newRow();
+    });
+
+    embed.addField("Live Market", `\`\`\`${t}\`\`\``, false);
   }
 
   // Return structured embed
