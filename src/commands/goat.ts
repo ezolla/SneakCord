@@ -22,7 +22,7 @@ class GoatCommand extends Command {
       let link: any, prices, data;
 
       // Parse search term
-      let searchInjection = await args.search.replace(" ", "%20");
+      let searchInjection = await args.search.replace(/ /g, "%20");
 
       // Fetch all data
       try {
