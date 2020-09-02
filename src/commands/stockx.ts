@@ -5,7 +5,7 @@ const fetch = require("node-fetch");
 class StockxCommand extends Command {
   constructor() {
     super("stockx", {
-      aliases: ["stockx"],
+      aliases: ["stockx", "stock-x", "stock", "sx"],
       args: [
         {
           id: "search",
