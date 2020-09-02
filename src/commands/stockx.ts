@@ -22,7 +22,7 @@ class StockxCommand extends Command {
       // Parse search term
       let searchInjection = await args.search.replace(" ", "%20");
 
-      // Search product
+      // Send POST request to search endpoint
       await fetch(
         "https://xw7sbct9v6-dsn.algolia.net/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.29.0&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6bfb5abee4dcd8cea8f0ca1ca085c2b3",
         {
@@ -45,36 +45,46 @@ module.exports = StockxCommand;
 export {};
 
 const createEmbed = (product: any) => {
-  let fields = [
-    { name: "Product SKU", value: product.style_id, inline: true },
-    { name: "Colorway", value: product.colorway, inline: true },
-    { name: "Release Date", value: product.traits[3].value, inline: true },
-    { name: "Brand", value: product.brand, inline: true },
-    { name: "Lowest Ask", value: product.lowest_ask, inline: true },
-    { name: "Highest Bid", value: product.highest_bid, inline: true },
-    { name: "Total Sold", value: product.deadstock_sold, inline: true },
-    { name: "Last Sale", value: product.last_sale, inline: true },
-  ];
-
-  // Grabbing dynamic data
-  product.traits.forEach((item: any) => {
-    // Checking for price data
-    if (item.name === "Retail Price") {
-      // Putting price as first field
-      fields.unshift({
-        name: "Retail Price",
-        value: `$${item.value}`,
-        inline: true,
-      });
-    }
-  });
-
+  // Create embed
   const embed = new Discord.MessageEmbed()
     .setColor("#5761C9")
     .setTitle(product.name)
     .setURL(`https://stockx.com/${product.url}`)
-    .setThumbnail(product.media.imageUrl)
-    .addFields(fields);
+    .setThumbnail(product.media.imageUrl);
 
+  // Checking and inputting dynamic data
+  product.traits.forEach((item: any) => {
+    // Checking for price data
+    if (item.name === "Retail Price") {
+      // Putting price as first field
+      embed.addField("Retail Price", item.value, true);
+    }
+  });
+  if (product.style_id) {
+    embed.addField("SKU", product.style_id, true);
+  }
+  if (product.colorway) {
+    embed.addField("Colorway", product.colorway, true);
+  }
+  if (product.traits[3].value) {
+    embed.addField("Release", product.traits[3].value, true);
+  }
+  if (product.brand) {
+    embed.addField("Brand", product.brand, true);
+  }
+  if (product.lowest_ask) {
+    embed.addField("Lowest Ask", product.lowest_ask, true);
+  }
+  if (product.highest_bid) {
+    embed.addField("Highest Bid", product.highest_bid, true);
+  }
+  if (product.deadstock_sold) {
+    embed.addField("Total Sold", product.deadstock_sold, true);
+  }
+  if (product.last_sale) {
+    embed.addField("Last Sale", product.last_sale, true);
+  }
+
+  // Return structured embed
   return embed;
 };
