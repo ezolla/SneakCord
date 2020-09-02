@@ -6,7 +6,7 @@ const randomUseragent = require("random-useragent");
 class StockxCommand extends Command {
   constructor() {
     super("stockx", {
-      aliases: ["stockx", "stock-x", "stock", "sx"],
+      aliases: ["stockx", "stock-x", "sx"],
       args: [
         {
           id: "search",
