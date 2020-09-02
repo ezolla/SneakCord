@@ -65,7 +65,7 @@ const createEmbed = (product: any) => {
   if (product.traits) {
     product.traits.forEach((item: any) => {
       if (item.name === "Retail Price") {
-        embed.addField("Retail Price", item.value, true);
+        embed.addField("Retail", `$${item.value}`, true);
       }
     });
   }
