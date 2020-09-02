@@ -22,7 +22,7 @@ class StockxCommand extends Command {
       let data: any;
 
       // Parse search term
-      let searchInjection = await args.search.replace(" ", "%20");
+      let searchInjection = await args.search.replace(/ /g, "%20");
 
       // Fetch all data
       try {
