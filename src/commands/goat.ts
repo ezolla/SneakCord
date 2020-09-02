@@ -44,6 +44,14 @@ class GoatCommand extends Command {
 
       // Sending embed to requester channel
       message.channel.send(embed);
+    } else {
+      // Create error embed
+      const embed = await new Discord.MessageEmbed()
+        .setColor("#5761C9")
+        .setTitle("Please give product search");
+
+      // Sending embed to requester channel
+      return message.channel.send(embed);
     }
   }
 }

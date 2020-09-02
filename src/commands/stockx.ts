@@ -37,6 +37,14 @@ class StockxCommand extends Command {
       )
         .then((res: any) => res.json())
         .then((json: any) => message.channel.send(createEmbed(json.hits[0])));
+    } else {
+      // Create error embed
+      const embed = await new Discord.MessageEmbed()
+        .setColor("#5761C9")
+        .setTitle("Please give product search");
+
+      // Sending embed to requester channel
+      return message.channel.send(embed);
     }
   }
 }
