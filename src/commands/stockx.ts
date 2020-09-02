@@ -52,6 +52,7 @@ class StockxCommand extends Command {
 module.exports = StockxCommand;
 export {};
 
+// Structures embed
 const createEmbed = (product: any) => {
   // Create embed
   const embed = new Discord.MessageEmbed()
@@ -61,13 +62,13 @@ const createEmbed = (product: any) => {
     .setThumbnail(product.media.imageUrl);
 
   // Checking and inputting dynamic data
-  product.traits.forEach((item: any) => {
-    // Checking for price data
-    if (item.name === "Retail Price") {
-      // Putting price as first field
-      embed.addField("Retail Price", item.value, true);
-    }
-  });
+  if (product.traits) {
+    product.traits.forEach((item: any) => {
+      if (item.name === "Retail Price") {
+        embed.addField("Retail Price", item.value, true);
+      }
+    });
+  }
   if (product.style_id) {
     embed.addField("SKU", product.style_id, true);
   }
