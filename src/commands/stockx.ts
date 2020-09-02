@@ -19,24 +19,24 @@ class StockxCommand extends Command {
 
   async exec(message: any, args: any) {
     if (args.search) {
+      let data: any;
+
       // Parse search term
       let searchInjection = await args.search.replace(" ", "%20");
 
-      // Send POST request to search endpoint
-      await fetch(
-        "https://xw7sbct9v6-dsn.algolia.net/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.29.0&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6bfb5abee4dcd8cea8f0ca1ca085c2b3",
-        {
-          method: "post",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
-            "User-Agent": await randomUseragent.getRandom(),
-          },
-          body: `{"params":"query=${searchInjection}&hitsPerPage=20&facets=*"}`,
-        }
-      )
-        .then((res: any) => res.json())
-        .then((json: any) => message.channel.send(createEmbed(json.hits[0])));
+      // Fetch all data
+      try {
+        // Fetching product data
+        data = await getData(searchInjection);
+      } catch (err) {
+        console.log(err);
+      }
+
+      // Create and structure embed
+      let embed = await createEmbed(data);
+
+      // Sending embed to requester channel
+      message.channel.send(embed);
     } else {
       // Create error embed
       const embed = await new Discord.MessageEmbed()
@@ -52,46 +52,75 @@ class StockxCommand extends Command {
 module.exports = StockxCommand;
 export {};
 
+// Fetches product data
+const getData = async (search: string) => {
+  // Send POST request to product endpoint
+  const response = await fetch(
+    "https://xw7sbct9v6-dsn.algolia.net/1/indexes/products/query?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%203.29.0&x-algolia-application-id=XW7SBCT9V6&x-algolia-api-key=6bfb5abee4dcd8cea8f0ca1ca085c2b3",
+    {
+      method: "post",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/x-www-form-urlencoded",
+        "User-Agent": await randomUseragent.getRandom(),
+      },
+      body: `{"params":"query=${search}&hitsPerPage=20&facets=*"}`,
+    }
+  );
+
+  // Checking for successful request
+  if (response.status === 200) {
+    // Translating response to JSON
+    const data = await response.json();
+
+    // Checking if products were returned
+    if (data.hits[0]) {
+      // Returning product data
+      return data.hits[0];
+    }
+  }
+};
+
 // Structures embed
-const createEmbed = (product: any) => {
+const createEmbed = (data: any) => {
   // Create embed
   const embed = new Discord.MessageEmbed()
     .setColor("#5761C9")
-    .setTitle(product.name)
-    .setURL(`https://stockx.com/${product.url}`)
-    .setThumbnail(product.media.imageUrl);
+    .setTitle(data.name)
+    .setURL(`https://stockx.com/${data.url}`)
+    .setThumbnail(data.media.imageUrl);
 
   // Checking and inputting dynamic data
-  if (product.traits) {
-    product.traits.forEach((item: any) => {
+  if (data.traits) {
+    data.traits.forEach((item: any) => {
       if (item.name === "Retail Price") {
         embed.addField("Retail", `$${item.value}`, true);
       }
     });
   }
-  if (product.style_id) {
-    embed.addField("SKU", product.style_id, true);
+  if (data.style_id) {
+    embed.addField("SKU", data.style_id, true);
   }
-  if (product.colorway) {
-    embed.addField("Colorway", product.colorway, true);
+  if (data.colorway) {
+    embed.addField("Colorway", data.colorway, true);
   }
-  if (product.traits[3].value) {
-    embed.addField("Release", product.traits[3].value, true);
+  if (data.traits[3].value) {
+    embed.addField("Release", data.traits[3].value, true);
   }
-  if (product.brand) {
-    embed.addField("Brand", product.brand, true);
+  if (data.brand) {
+    embed.addField("Brand", data.brand, true);
   }
-  if (product.lowest_ask) {
-    embed.addField("Lowest Ask", product.lowest_ask, true);
+  if (data.lowest_ask) {
+    embed.addField("Lowest Ask", data.lowest_ask, true);
   }
-  if (product.highest_bid) {
-    embed.addField("Highest Bid", product.highest_bid, true);
+  if (data.highest_bid) {
+    embed.addField("Highest Bid", data.highest_bid, true);
   }
-  if (product.deadstock_sold) {
-    embed.addField("Total Sold", product.deadstock_sold, true);
+  if (data.deadstock_sold) {
+    embed.addField("Total Sold", data.deadstock_sold, true);
   }
-  if (product.last_sale) {
-    embed.addField("Last Sale", product.last_sale, true);
+  if (data.last_sale) {
+    embed.addField("Last Sale", data.last_sale, true);
   }
 
   // Return structured embed
