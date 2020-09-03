@@ -66,6 +66,8 @@ const getData = async (search: string) => {
       method: "POST",
       headers: {
         "User-Agent": await randomUseragent.getRandom(),
+        "Content-Type": "application/json",
+        Accept: "application/json",
       },
       body: `{"params":"query=${search}&hitsPerPage=20&facets=*"}`,
     }
@@ -94,6 +96,7 @@ const getPrices = async (slug: string) => {
     {
       headers: {
         "User-Agent": await randomUseragent.getRandom(),
+        "Content-Type": "application/json",
       },
       http2: true,
     }
