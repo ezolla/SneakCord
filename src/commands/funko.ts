@@ -72,8 +72,11 @@ const getData = async (search: string) => {
     // Translating response to JSON
     const data = await response.json();
 
-    // Returning product search data
-    return data;
+    // Checking if product data is availabe
+    if (data.data[0].attributes) {
+      // Returning product search data
+      return data;
+    }
   }
 };
 
