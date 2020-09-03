@@ -3,7 +3,7 @@ const { Command } = require("discord-akairo");
 const fetch = require("node-fetch");
 const randomUseragent = require("random-useragent");
 const Table = require("easy-table");
-const urlHelper = require("url");
+const urlParser = require("url");
 
 class ShopifyCommand extends Command {
   constructor() {
@@ -114,7 +114,7 @@ const createEmbed = (data: any, url: string) => {
   }
   if (data.product.variants) {
     if (url) {
-      host = urlHelper.parse(url, true, true).hostname;
+      host = urlParser.parse(url, true, true).hostname;
       console.log(host);
     }
 
