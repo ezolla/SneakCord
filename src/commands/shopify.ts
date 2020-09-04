@@ -192,7 +192,19 @@ const createScrapeEmbed = (data: any, url: string) => {
     );
   }
   if (data.product.tags) {
-    embed.addField("Keywords", `\`\`\`${data.product.tags}\`\`\``, false);
+    let parsedTags = data.product.tags.split(",");
+    let index = parsedTags.length - 1;
+
+    // Cleaning out low-tier keywords
+    while (index >= 0) {
+      if (parsedTags[index].includes("size")) {
+        parsedTags.splice(index, 1);
+      }
+
+      index -= 1;
+    }
+
+    embed.addField("Keywords", `\`\`\`${parsedTags}\`\`\``, false);
   }
   if (data.product.variants) {
     // Looping product variants
