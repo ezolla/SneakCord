@@ -3,6 +3,7 @@ const { Command } = require("discord-akairo");
 const fetch = require("node-fetch");
 const randomUseragent = require("random-useragent");
 const Table = require("easy-table");
+const urlParser = require("url");
 
 class ShopifyCommand extends Command {
   constructor() {
@@ -59,19 +60,23 @@ class ShopifyCommand extends Command {
       // Checking for two arguments
       if (parsedArguments.length === 2) {
         // Run Shopify link builder
-        let url: string = "";
+        let hostname: string = "";
         let id: string = "";
 
+        // Identifying and labelling arguments
         if (parsedArguments[0].startsWith("http")) {
-          url = parsedArguments[0];
+          hostname = urlParser.parse(parsedArguments[0], true, true).hostname;
           id = parsedArguments[1];
         } else if (parsedArguments[1].startsWith("http")) {
-          url = parsedArguments[1];
+          hostname = urlParser.parse(parsedArguments[1], true, true).hostname;
           id = parsedArguments[0];
         }
 
-        console.log(`URL: ${url}`);
-        console.log(`ID: ${id}`);
+        // Create and structure embed
+        const embed = await createBuildEmbed(hostname, id);
+
+        // Sending embed to requester channel
+        message.channel.send(embed);
       }
     } else if (command === "scrape") {
       // Checking for product URL
@@ -88,7 +93,7 @@ class ShopifyCommand extends Command {
         }
 
         // Create and structure embed
-        let embed = await createEmbed(data, argument);
+        let embed = await createScrapeEmbed(data, argument);
 
         // Sending embed to requester channel
         message.channel.send(embed);
@@ -121,10 +126,21 @@ const getData = async (url: string) => {
   }
 };
 
-// Structures embed
-const createEmbed = (data: any, url: string) => {
+// Structures build embed
+const createBuildEmbed = (hostname: string, id: string) => {
+  // Create embed
+  const embed = new Discord.MessageEmbed()
+    .setColor("#5761C9")
+    .setTitle(`https://${hostname}/cart/${id}:1`)
+    .setURL(`https://${hostname}/cart/${id}:1`);
+
+  // Return structured embed
+  return embed;
+};
+
+// Structures scrape embed
+const createScrapeEmbed = (data: any, url: string) => {
   let tableData: any = [];
-  // let host: string = "";
 
   // Create embed
   const embed = new Discord.MessageEmbed().setColor("#5761C9");
