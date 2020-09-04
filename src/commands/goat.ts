@@ -86,6 +86,36 @@ const getLink = async (search: string) => {
   }
 };
 
+// Fetches product data
+const getData = async (link: string) => {
+  // Forming endpoint
+  let apiEndpoint = link.replace("sneakers", "web-api/v1/product_templates");
+
+  // Sending GET request to endpoint
+  const response = await fetch(apiEndpoint, {
+    method: "GET",
+    headers: {
+      "User-Agent": await randomUseragent.getRandom(),
+      "Content-Type": "application/json",
+    },
+  });
+
+  // Translating response to JSON
+  const data = await response.json();
+
+  // Returning useful data
+  return {
+    brand: data.brandName,
+    designer: data.designer,
+    colorway: data.details,
+    image: data.mainPictureUrl,
+    name: data.name,
+    release: data.releaseDate,
+    silhouette: data.silhouette,
+    sku: data.sku,
+  };
+};
+
 // Fetches product prices
 const getPrices = async (link: string) => {
   let priceMap: any = {};
@@ -124,36 +154,6 @@ const getPrices = async (link: string) => {
 
   // Returning price map
   return priceMap;
-};
-
-// Fetches product data
-const getData = async (link: string) => {
-  // Forming endpoint
-  let apiEndpoint = link.replace("sneakers", "web-api/v1/product_templates");
-
-  // Sending GET request to endpoint
-  const response = await fetch(apiEndpoint, {
-    method: "GET",
-    headers: {
-      "User-Agent": await randomUseragent.getRandom(),
-      "Content-Type": "application/json",
-    },
-  });
-
-  // Translating response to JSON
-  const data = await response.json();
-
-  // Returning useful data
-  return {
-    brand: data.brandName,
-    designer: data.designer,
-    colorway: data.details,
-    image: data.mainPictureUrl,
-    name: data.name,
-    release: data.releaseDate,
-    silhouette: data.silhouette,
-    sku: data.sku,
-  };
 };
 
 // Structures embed
