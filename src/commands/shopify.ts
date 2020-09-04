@@ -10,38 +10,89 @@ class ShopifyCommand extends Command {
       aliases: ["shopify", "shop", "shopify-variants", "variants"],
       args: [
         {
-          id: "url",
+          id: "command",
           type: "string",
+        },
+        {
+          id: "argument",
+          type: "string",
+          match: "content",
         },
       ],
     });
   }
 
   async exec(message: any, args: any) {
-    if (args.url) {
-      let data: any;
+    let command: string = "";
+    let argument: string = "";
 
-      // Fetch all data
-      try {
-        // Fetching product data
-        data = await getData(args.url);
-      } catch (err) {
-        console.log(err);
-      }
-
-      // Create and structure embed
-      let embed = await createEmbed(data, args.url);
-
-      // Sending embed to requester channel
-      message.channel.send(embed);
+    // Verifying command
+    if (args.command) {
+      // Preparing command for checks
+      command = args.command.toLowerCase();
     } else {
       // Create error embed
       const embed = await new Discord.MessageEmbed()
         .setColor("#5761C9")
-        .setTitle("Please give shopify product URL");
+        .setTitle("Please give shopify specific command");
 
       // Sending embed to requester channel
       return message.channel.send(embed);
+    }
+
+    // Verifying argument
+    if (args.argument.split(" ")[1]) {
+      // Checking command requirement
+      if (command === "build") {
+        // Removing command from content
+        argument = args.argument.toLowerCase().replace("build ", "");
+      } else if (command === "scrape") {
+        // Removing command from content
+        argument = args.argument.toLowerCase().replace("scrape ", "");
+      }
+    }
+
+    // Identifying shopify-specific command
+    if (command === "build") {
+      let parsedArguments: string[] = argument.split(" ");
+
+      // Checking for two arguments
+      if (parsedArguments.length === 2) {
+        // Run Shopify link builder
+        let url: string = "";
+        let id: string = "";
+
+        if (parsedArguments[0].startsWith("http")) {
+          url = parsedArguments[0];
+          id = parsedArguments[1];
+        } else if (parsedArguments[1].startsWith("http")) {
+          url = parsedArguments[1];
+          id = parsedArguments[0];
+        }
+
+        console.log(`URL: ${url}`);
+        console.log(`ID: ${id}`);
+      }
+    } else if (command === "scrape") {
+      // Checking for product URL
+      if (argument.startsWith("http")) {
+        // Run Shopify product scraper
+        let data: any;
+
+        // Fetch all data
+        try {
+          // Fetching product data
+          data = await getData(argument);
+        } catch (err) {
+          console.log(err);
+        }
+
+        // Create and structure embed
+        let embed = await createEmbed(data, argument);
+
+        // Sending embed to requester channel
+        message.channel.send(embed);
+      }
     }
   }
 }
