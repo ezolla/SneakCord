@@ -51,6 +51,14 @@ class ShopifyCommand extends Command {
         // Removing command from content
         argument = args.argument.toLowerCase().replace("scrape ", "");
       }
+    } else {
+      // Create error embed
+      const embed = await new Discord.MessageEmbed()
+        .setColor("#5761C9")
+        .setTitle("Please give shopify specific command");
+
+      // Sending embed to requester channel
+      return message.channel.send(embed);
     }
 
     // Identifying shopify-specific command
