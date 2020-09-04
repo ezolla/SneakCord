@@ -3,7 +3,6 @@ const { Command } = require("discord-akairo");
 const fetch = require("node-fetch");
 const randomUseragent = require("random-useragent");
 const Table = require("easy-table");
-const urlParser = require("url");
 
 class ShopifyCommand extends Command {
   constructor() {
@@ -74,7 +73,7 @@ const getData = async (url: string) => {
 // Structures embed
 const createEmbed = (data: any, url: string) => {
   let tableData: any = [];
-  let host: string = "";
+  // let host: string = "";
 
   // Create embed
   const embed = new Discord.MessageEmbed().setColor("#5761C9");
@@ -129,17 +128,12 @@ const createEmbed = (data: any, url: string) => {
     embed.addField("Keywords", `\`\`\`${data.product.tags}\`\`\``, false);
   }
   if (data.product.variants) {
-    // Parsing site hostname for cart links
-    if (url) {
-      host = urlParser.parse(url, true, true).hostname;
-    }
-
     // Looping product variants
     data.product.variants.forEach((variant: any) => {
       // Fulfilling data into display table
       tableData.push({
         size: variant.title.replace(/^(.{1}[^\s]*).*/, "$1"),
-        cart: `https://${host}/cart/${variant.id}:1`,
+        cart: variant.id,
       });
     });
 
@@ -149,7 +143,7 @@ const createEmbed = (data: any, url: string) => {
     // Structuring display table
     tableData.forEach((variant: any) => {
       t.cell("Size", variant.size);
-      t.cell("Cart", variant.cart);
+      t.cell("Cart ID", variant.cart);
       t.newRow();
     });
 
