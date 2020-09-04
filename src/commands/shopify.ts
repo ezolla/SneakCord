@@ -20,8 +20,6 @@ class ShopifyCommand extends Command {
 
   async exec(message: any, args: any) {
     if (args.url) {
-      console.log(`Shopify URL: ${args.url}`);
-
       let data: any;
 
       // Fetch all data
@@ -70,7 +68,7 @@ const getData = async (url: string) => {
 
     // Returning product data
     return data;
-  } 
+  }
 };
 
 // Structures embed
@@ -101,13 +99,31 @@ const createEmbed = (data: any, url: string) => {
     embed.addField("Category", data.product.product_type, true);
   }
   if (data.product.created_at) {
-    embed.addField("Created", data.product.created_at, true);
+    embed.addField(
+      "Created",
+      `${data.product.created_at.split("T")[0]}\n${
+        data.product.created_at.split("T")[1].split("-")[0]
+      }`,
+      true
+    );
   }
   if (data.product.updated_at) {
-    embed.addField("Updated", data.product.updated_at, true);
+    embed.addField(
+      "Updated",
+      `${data.product.updated_at.split("T")[0]}\n${
+        data.product.updated_at.split("T")[1].split("-")[0]
+      }`,
+      true
+    );
   }
   if (data.product.published_at) {
-    embed.addField("Published", data.product.published_at, true);
+    embed.addField(
+      "Published",
+      `${data.product.published_at.split("T")[0]}\n${
+        data.product.published_at.split("T")[1].split("-")[0]
+      }`,
+      true
+    );
   }
   if (data.product.tags) {
     embed.addField("Keywords", `\`\`\`${data.product.tags}\`\`\``, false);
