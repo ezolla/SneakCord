@@ -70,7 +70,7 @@ const getData = async (url: string) => {
 
     // Returning product data
     return data;
-  }
+  } 
 };
 
 // Structures embed
@@ -113,24 +113,25 @@ const createEmbed = (data: any, url: string) => {
     embed.addField("Keywords", `\`\`\`${data.product.tags}\`\`\``, false);
   }
   if (data.product.variants) {
+    // Parsing site hostname for cart links
     if (url) {
       host = urlParser.parse(url, true, true).hostname;
-      console.log(host);
     }
 
+    // Looping product variants
     data.product.variants.forEach((variant: any) => {
-      console.log(variant);
+      // Fulfilling data into display table
       tableData.push({
-        // sku: variant.sku,
-        size: variant.title,
+        size: variant.title.replace(/^(.{1}[^\s]*).*/, "$1"),
         cart: `https://${host}/cart/${variant.id}:1`,
       });
     });
 
+    // Creating display table
     let t = new Table();
 
+    // Structuring display table
     tableData.forEach((variant: any) => {
-      // t.cell("SKU", variant.sku);
       t.cell("Size", variant.size);
       t.cell("Cart", variant.cart);
       t.newRow();
