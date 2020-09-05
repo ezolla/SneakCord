@@ -96,6 +96,22 @@ class SupremeCommand extends Command {
     } else if (command === "lookbook") {
       // Run Supreme lookbook scraper
       console.log("Running Supreme lookbook scraper");
+
+      let items: any;
+
+      // Fetch all data
+      try {
+        // Fetching recent droplist
+        items = await getLookbook();
+      } catch (err) {
+        console.log(err);
+      }
+
+      // Create and structure embed
+      let embed = await createLookbookEmbed(items);
+
+      // Sending embed to requester channel
+      return paginationEmbed(message, embed);
     } else if (command === "preview") {
       // Run Supreme sellout time scraper
       console.log("Running Supreme preview scraper");
@@ -176,9 +192,47 @@ const getItems = async (droplist: string) => {
   return items;
 };
 
+// Fetches lookbook data
+const getLookbook = async () => {
+  let lookbookItems: any = [];
+
+  // Converting response to html
+  const $ = await rp(options("https://www.supremenewyork.com/lookbooks"));
+
+  // Loop through loobook items
+  $("#lookbook-items").each((_index: any, ul: any) => {
+    const children = $(ul).children();
+    children.each((_index: any, li: any) => {
+      const children = $(li).children();
+      children.each((_index: any, data: any) => {
+        let item: any = {};
+
+        // Scrape available data
+        if ($(data).find("button").attr("data-idx")) {
+          item.id = $(data).find("button").attr("data-idx");
+        }
+        if ($(data).find("img").attr("src")) {
+          item.src = $(data).find("img").attr("src");
+        }
+        if ($(data).find("img").attr("alt")) {
+          item.alt = $(data).find("img").attr("alt");
+        }
+
+        // Push items into array
+        lookbookItems.push(item);
+      });
+    });
+  });
+
+  // Removed empty item from array
+  lookbookItems.shift();
+
+  // Returning array of lookbook items
+  return lookbookItems;
+};
+
 // Structures droplist embed
 const createDroplistEmbed = async (items: any, droplist: any) => {
-  console.log(items);
   let pages: any = [];
 
   // Adding introduction page
@@ -223,6 +277,46 @@ const createDroplistEmbed = async (items: any, droplist: any) => {
     }
     if (item.downvotes) {
       embedPage.addField("Downvotes", item.downvotes, true);
+    }
+
+    // Pushing embed page
+    pages.push(embedPage);
+  });
+
+  // Return structured embed pages
+  return pages;
+};
+
+// Structures lookbook embed
+const createLookbookEmbed = async (items: any) => {
+  let pages: any = [];
+
+  // Adding introduction page
+  const embedIntro = new Discord.MessageEmbed()
+    .setColor("#5761C9")
+    .setTitle("Supreme Lookbook FW20")
+    .setURL("https://www.supremenewyork.com/lookbooks")
+    .setDescription(
+      "Browse through the embed pages to see shots of upcoming items in this Supreme season!"
+    );
+
+  // Pushing introductory page
+  pages.push(embedIntro);
+
+  // Looping through each item
+  items.forEach((item: any) => {
+    // Create embed
+    const embedPage = new Discord.MessageEmbed().setColor("#5761C9");
+
+    // Checking and inputting dynamic data
+    if (item.id) {
+      embedPage.setTitle(`Lookbook Item ${parseInt(item.id) + 1}`);
+    }
+    if (item.alt) {
+      embedPage.addField("Item Highlights", item.alt, true);
+    }
+    if (item.src) {
+      embedPage.setImage(`https:${item.src}`);
     }
 
     // Pushing embed page
