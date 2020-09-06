@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const Twit = require("twit");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import Twit from "twit";
 
 // Initializing Twitter Client
 const T = new Twit({

@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const fetch = require("node-fetch");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import fetch from "node-fetch";
 
 class PingCommand extends Command {
   constructor() {

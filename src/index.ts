@@ -1,13 +1,11 @@
-const {
-  AkairoClient,
-  CommandHandler,
-  ListenerHandler,
-} = require("discord-akairo");
-const fetch = require("node-fetch");
-
-const { sendWebhook } = require("./utils/webhooks");
+import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo";
+import fetch from "node-fetch";
+import { sendWebhook } from "./utils/webhooks";
 
 class MyClient extends AkairoClient {
+  readonly commandHandler: CommandHandler;
+  readonly listenerHandler: ListenerHandler;
+
   constructor() {
     super(
       {

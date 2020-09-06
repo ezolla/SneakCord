@@ -1,4 +1,5 @@
-const { Listener } = require("discord-akairo");
+// Imports
+import { Listener } from "discord-akairo";
 
 class ReadyListener extends Listener {
   constructor() {
@@ -11,8 +12,8 @@ class ReadyListener extends Listener {
   exec() {
     console.log("SneakCord is running!");
 
-    this.client.user.setStatus("online");
-    this.client.user.setActivity("@SneakCord on Twitter", {
+    this.client.user!.setStatus("online");
+    this.client.user!.setActivity("@SneakCord on Twitter", {
       type: "PLAYING",
     });
   }

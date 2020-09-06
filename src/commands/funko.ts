@@ -1,7 +1,8 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const fetch = require("node-fetch");
-const randomUseragent = require("random-useragent");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import fetch from "node-fetch";
+import randomUseragent from "random-useragent";
 
 class FunkoCommand extends Command {
   constructor() {
@@ -60,7 +61,7 @@ const getData = async (search: string) => {
     {
       method: "GET",
       headers: {
-        "User-Agent": await randomUseragent.getRandom(),
+        "User-Agent": await randomUseragent.getRandom()!,
         "Content-Type": "application/json",
         Accept: "application/json",
       },

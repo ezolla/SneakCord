@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const paginationEmbed = require("discord.js-pagination");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import paginationEmbed from "discord.js-pagination";
 
 class HelpCommand extends Command {
   constructor() {

@@ -1,9 +1,10 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const fetch = require("node-fetch");
-const got = require("got");
-const randomUseragent = require("random-useragent");
-const Table = require("easy-table");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import fetch from "node-fetch";
+import got from "got";
+import randomUseragent from "random-useragent";
+import Table from "easy-table";
 
 class StockxCommand extends Command {
   constructor() {
@@ -65,7 +66,7 @@ const getData = async (search: string) => {
     {
       method: "POST",
       headers: {
-        "User-Agent": await randomUseragent.getRandom(),
+        "User-Agent": await randomUseragent.getRandom()!,
         "Content-Type": "application/json",
         Accept: "application/json",
       },
@@ -95,7 +96,7 @@ const getPrices = async (slug: string) => {
     `https://stockx.com/api/products/${slug}?includes=market`,
     {
       headers: {
-        "User-Agent": await randomUseragent.getRandom(),
+        "User-Agent": await randomUseragent.getRandom()!,
         "Content-Type": "application/json",
       },
       http2: true,

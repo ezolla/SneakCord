@@ -1,5 +1,6 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
 
 class AboutCommand extends Command {
   constructor() {

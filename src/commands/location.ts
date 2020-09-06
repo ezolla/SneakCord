@@ -1,7 +1,8 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const nodeFetch = require("node-fetch");
-const NodeGeocoder = require("node-geocoder");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import nodeFetch from "node-fetch";
+import NodeGeocoder from "node-geocoder";
 
 const options = {
   provider: "google",

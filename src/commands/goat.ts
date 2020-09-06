@@ -1,8 +1,9 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const fetch = require("node-fetch");
-const Table = require("easy-table");
-const randomUseragent = require("random-useragent");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import fetch from "node-fetch";
+import Table from "easy-table";
+import randomUseragent from "random-useragent";
 
 class GoatCommand extends Command {
   constructor() {
@@ -67,7 +68,7 @@ const getLink = async (search: string) => {
     {
       method: "POST",
       headers: {
-        "User-Agent": await randomUseragent.getRandom(),
+        "User-Agent": await randomUseragent.getRandom()!,
         "Content-Type": "application/json",
       },
       body: `{"requests":[{"indexName":"product_variants_v2","params":"distinct=true&maxValuesPerFacet=1&page=0&query=${search}&facets=%5B%22instant_ship_lowest_price_cents"}]}`,
@@ -95,7 +96,7 @@ const getData = async (link: string) => {
   const response = await fetch(apiEndpoint, {
     method: "GET",
     headers: {
-      "User-Agent": await randomUseragent.getRandom(),
+      "User-Agent": await randomUseragent.getRandom()!,
       "Content-Type": "application/json",
     },
   });
@@ -130,7 +131,7 @@ const getPrices = async (link: string) => {
   const response = await fetch(apiEndpoint, {
     method: "GET",
     headers: {
-      "User-Agent": await randomUseragent.getRandom(),
+      "User-Agent": await randomUseragent.getRandom()!,
       "Content-Type": "application/json",
     },
   });

@@ -1,10 +1,11 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const fetch = require("node-fetch");
-const got = require("got");
-const cheerio = require("cheerio");
-const Table = require("easy-table");
-const randomUseragent = require("random-useragent");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import fetch from "node-fetch";
+import got from "got";
+import cheerio from "cheerio";
+import Table from "easy-table";
+import randomUseragent from "random-useragent";
 
 class StadiumGoodsCommand extends Command {
   constructor() {
@@ -64,18 +65,21 @@ export {};
 // Fetctes product link
 const getLink = async (search: string) => {
   // Sending POST request to endpoint
-  const response = await got.post("https://graphql.stadiumgoods.com/graphql", {
-    headers: {
-      "User-Agent": await randomUseragent.getRandom(),
-      "Content-Type": "application/json",
-    },
-    body:
-      '{"operationId":"sg-front/cached-a41eba558ae6325f072164477a24d3c2","variables":{"categorySlug":"","initialSearchQuery":"' +
-      search +
-      '","initialSort":"RELEVANCE","includeUnavailableProducts":null,"filteringOnCategory":false,"filteringOnBrand":false,"filteringOnMensSizes":false,"filteringOnKidsSizes":false,"filteringOnWomensSizes":false,"filteringOnApparelSizes":false,"filteringOnGender":false,"filteringOnColor":false,"filteringOnPriceRange":false},"locale":"USA_USD"}',
-    http2: true,
-    responseType: "json",
-  });
+  const response: any = await got.post(
+    "https://graphql.stadiumgoods.com/graphql",
+    {
+      headers: {
+        "User-Agent": await randomUseragent.getRandom()!,
+        "Content-Type": "application/json",
+      },
+      body:
+        '{"operationId":"sg-front/cached-a41eba558ae6325f072164477a24d3c2","variables":{"categorySlug":"","initialSearchQuery":"' +
+        search +
+        '","initialSort":"RELEVANCE","includeUnavailableProducts":null,"filteringOnCategory":false,"filteringOnBrand":false,"filteringOnMensSizes":false,"filteringOnKidsSizes":false,"filteringOnWomensSizes":false,"filteringOnApparelSizes":false,"filteringOnGender":false,"filteringOnColor":false,"filteringOnPriceRange":false},"locale":"USA_USD"}',
+      http2: true,
+      responseType: "json",
+    }
+  );
 
   // Checking for product links
   if (response.body.data.configurableProducts.edges[0]) {
@@ -94,7 +98,7 @@ const getData = async (search: string) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": await randomUseragent.getRandom(),
+        "User-Agent": await randomUseragent.getRandom()!,
       },
       body: `{"params":"query=${search}&hitsPerPage=20&facets=*"}`,
     }
@@ -121,7 +125,7 @@ const getPrices = async (link: string) => {
   const response = await fetch(link, {
     method: "POST",
     headers: {
-      "User-Agent": await randomUseragent.getRandom(),
+      "User-Agent": await randomUseragent.getRandom()!,
       "Content-Type": "application/json",
     },
     body: "",
@@ -136,14 +140,14 @@ const getPrices = async (link: string) => {
     const $ = await cheerio.load(data);
 
     // Scraping frontend sizes and prices
-    await $(".product-sizes__input").map((i: any, product: any) => {
+    $(".product-sizes__input").map((i: any, product: any) => {
       if ($(product).attr("data-stock") == "true") {
-        let size = $(product).attr("data-size");
+        let size: any = $(product).attr("data-size");
 
         if (size[size.length - 1] == "W") {
           size = size.substring(0, size.length - 1);
         }
-        priceMap[size] = parseInt($(product).attr("data-amount")) / 100;
+        priceMap[size] = parseInt($(product).attr("data-amount")!) / 100;
       }
 
       if (i == $(".product-sizes__input").length - 1) {

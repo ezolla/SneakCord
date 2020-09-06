@@ -1,9 +1,10 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const rp = require("request-promise");
-const cheerio = require("cheerio");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import rp from "request-promise";
+import cheerio from "cheerio";
 const paginationEmbed = require("discord.js-pagination");
-const Table = require("easy-table");
+import Table from "easy-table";
 
 class SupremeCommand extends Command {
   constructor() {

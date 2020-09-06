@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const currencyConverter = require("@techhof-ab/currency-converter");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import currencyConverter from "@techhof-ab/currency-converter";
 
 class CurrencyCommand extends Command {
   constructor() {
@@ -25,7 +26,7 @@ class CurrencyCommand extends Command {
 
   async exec(message: any, args: any) {
     if (!(args.from === null && args.to === null && args.amount === null)) {
-      const result = await getConversion(args.from, args.to, args.amount);
+      const result: any = await getConversion(args.from, args.to, args.amount);
 
       const embed = await new Discord.MessageEmbed()
         .setColor("#5761C9")

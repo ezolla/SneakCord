@@ -1,7 +1,8 @@
-const { Listener } = require("discord-akairo");
-const fetch = require("node-fetch");
+// Imports
+import { Listener } from "discord-akairo";
+import fetch from "node-fetch";
 
-const { sendWebhook } = require("../utils/webhooks");
+import { sendWebhook } from "../utils/webhooks";
 
 class GuildCreateListener extends Listener {
   constructor() {

@@ -1,6 +1,7 @@
-const Discord = require("discord.js");
-const { Command } = require("discord-akairo");
-const converter = module.require("shoe-size-converter");
+// Imports
+import Discord from "discord.js";
+import { Command } from "discord-akairo";
+import converter from "shoe-size-converter";
 
 class SizeCommand extends Command {
   constructor() {
