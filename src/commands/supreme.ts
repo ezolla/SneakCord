@@ -48,8 +48,6 @@ class SupremeCommand extends Command {
         argument = args.argument.toLowerCase().replace("droplist ", "");
       } else if (command === "sellout") {
         argument = args.argument.toLowerCase().replace("sellout ", "");
-      } else if (command === "news") {
-        argument = args.argument.toLowerCase().replace("news ", "");
       } else if (command === "left2drop") {
         argument = args.argument.toLowerCase().replace("left2drop ", "");
       } else if (command === "lookbook") {
@@ -114,9 +112,6 @@ class SupremeCommand extends Command {
 
       // Sending embed to requester channel
       message.channel.send(embed);
-    } else if (command === "news") {
-      // Run Supreme news scraper
-      console.log("Running Supreme news scraper");
     } else if (command === "left2drop") {
       // Run Supreme left2drop scraper
       console.log("Running Supreme left2drop scraper");
