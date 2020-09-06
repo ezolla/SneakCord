@@ -1,7 +1,7 @@
 // Imports
 import Discord from "discord.js";
 import { Command } from "discord-akairo";
-import converter from "shoe-size-converter";
+const converter = require("shoe-size-converter");
 
 class SizeCommand extends Command {
   constructor() {

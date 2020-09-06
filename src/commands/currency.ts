@@ -1,7 +1,7 @@
 // Imports
 import Discord from "discord.js";
 import { Command } from "discord-akairo";
-import currencyConverter from "@techhof-ab/currency-converter";
+const currencyConverter = require("@techhof-ab/currency-converter");
 
 class CurrencyCommand extends Command {
   constructor() {

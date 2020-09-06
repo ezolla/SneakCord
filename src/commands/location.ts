@@ -2,7 +2,7 @@
 import Discord from "discord.js";
 import { Command } from "discord-akairo";
 import nodeFetch from "node-fetch";
-import NodeGeocoder from "node-geocoder";
+const NodeGeocoder = require("node-geocoder");
 
 const options = {
   provider: "google",
