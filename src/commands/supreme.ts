@@ -3,6 +3,7 @@ const { Command } = require("discord-akairo");
 const rp = require("request-promise");
 const cheerio = require("cheerio");
 const paginationEmbed = require("discord.js-pagination");
+const Table = require("easy-table");
 
 class SupremeCommand extends Command {
   constructor() {
@@ -90,6 +91,22 @@ class SupremeCommand extends Command {
     } else if (command === "left2drop") {
       // Run Supreme left2drop scraper
       console.log("Running Supreme left2drop scraper");
+
+      let items: any;
+
+      // Fetch all data
+      try {
+        // Fetching left2drop
+        items = await getLeft2Drop();
+      } catch (err) {
+        console.log(err);
+      }
+
+      // Create and structure embed
+      let embed = await createLeft2DropEmbed(items);
+
+      // Sending embed to requester channel
+      message.channel.send(embed);
     } else if (command === "sellout") {
       // Run Supreme left2drop scraper
       console.log("Running Supreme left2drop scraper");
@@ -278,6 +295,40 @@ const getPreview = async () => {
   return previewItems;
 };
 
+// Fetches left2drop data
+const getLeft2Drop = async () => {
+  let leftItems: any = [];
+
+  // Converting response to html
+  const $ = await rp(
+    options(
+      "https://www.supremecommunity.com/season/fall-winter2020/lefttodrop/"
+    )
+  );
+
+  // Scrape section headings
+  $(".l2d-title").each((index: any, data: any) => {
+    let item: any = { id: 1 };
+
+    // Scrape available data
+    if (index) {
+      item.id = index + 1;
+    }
+    if ($(data).text()) {
+      item.category = $(data).text().split(" ")[0].slice(0, -1);
+      item.count = $(data).text().split(" ")[
+        $(data).text().split(" ").length - 1
+      ];
+    }
+
+    // Push items into array
+    leftItems.push(item);
+  });
+
+  // Returning array of lookbook items
+  return leftItems;
+};
+
 // Structures droplist embed
 const createDroplistEmbed = async (items: any, droplist: any) => {
   let pages: any = [];
@@ -417,4 +468,40 @@ const createPreviewEmbed = async (items: any) => {
 
   // Return structured embed pages
   return pages;
+};
+
+// Structures left2drop embed
+const createLeft2DropEmbed = async (items: any) => {
+  let tableData: any = [];
+
+  // Adding introduction page
+  const embed = new Discord.MessageEmbed()
+    .setColor("#5761C9")
+    .setTitle("Supreme FW20 Left2Drop")
+    .setURL(
+      "https://www.supremecommunity.com/season/fall-winter2020/lefttodrop/"
+    )
+    .setDescription(
+      "Browse through the embed pages to see item categories and their associated item count remaining. Click the link for more details."
+    );
+
+  // Parsing items and filling table
+  if (items) {
+    items.forEach((item: any) => {
+      tableData.push({ category: item.category, count: item.count });
+    });
+
+    let t = new Table();
+
+    tableData.forEach((pair: any) => {
+      t.cell("Category", pair.category);
+      t.cell("Count", pair.count);
+      t.newRow();
+    });
+
+    embed.addField("Left to Drop", `\`\`\`${t}\`\`\``, false);
+  }
+
+  // Return structured embed
+  return embed;
 };
