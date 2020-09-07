@@ -26,6 +26,7 @@ class SupremeCommand extends Command {
           "left-2-drop",
           "left-to-drop",
         ],
+        ["supreme-droptime", "droptime", "drop-time"],
         ["supreme-preview", "preview"],
         ["supreme-lookbook", "lookbook"],
       ],
