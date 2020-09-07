@@ -18,7 +18,6 @@ class ShopifyCommand extends Command {
       type: [
         ["shopify-scrape", "scrape", "fetch", "get"],
         ["shopify-build", "build", "join", "create"],
-        ["shopify-help", "help"],
       ],
       otherwise: () => {
         return new MessageEmbed()
