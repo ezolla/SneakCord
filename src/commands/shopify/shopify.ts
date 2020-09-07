@@ -16,7 +16,6 @@ class ShopifyCommand extends Command {
   *args() {
     const method = yield {
       type: [
-        // [module-id, alias1, alias2...]
         ["shopify-scrape", "scrape", "fetch", "get"],
         ["shopify-build", "build", "join", "create"],
         ["shopify-help", "help"],
