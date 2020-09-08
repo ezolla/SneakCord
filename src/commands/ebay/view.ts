@@ -4,7 +4,7 @@ import Discord, { Message } from "discord.js";
 import fetch from "node-fetch";
 import randomUseragent from "random-useragent";
 
-class EbayCommand extends Command {
+class EbayViewCommand extends Command {
   constructor() {
     super("ebay-view", {
       category: "flag",
@@ -65,7 +65,7 @@ class EbayCommand extends Command {
   }
 }
 
-module.exports = EbayCommand;
+module.exports = EbayViewCommand;
 export {};
 
 // Sends request to Ebay product
