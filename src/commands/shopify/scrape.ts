@@ -37,7 +37,7 @@ class ShopifyScrapeCommand extends Command {
       }
 
       // Create and structure embed
-      let embed = await createScrapeEmbed(data, args.link);
+      let embed = createScrapeEmbed(data, args.link);
 
       // Sending embed to requester channel
       message.channel.send(embed);
