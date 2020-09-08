@@ -1,5 +1,6 @@
 // Imports
 import { Listener } from "discord-akairo";
+import { Guild } from "discord.js";
 import fetch from "node-fetch";
 
 import { sendWebhook } from "../utils/webhooks";
@@ -12,7 +13,7 @@ class GuildCreateListener extends Listener {
     });
   }
 
-  async exec(guild: any, error: any) {
+  async exec(guild: Guild, error: any) {
     if (!error) {
       console.log("Guild create event triggered");
 
