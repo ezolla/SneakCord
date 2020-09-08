@@ -7,7 +7,7 @@ const discordEpoch = 1420070400000;
 class TimestampCommand extends Command {
   constructor() {
     super("timestamp", {
-      aliases: ["timestamp", "snowflake"],
+      aliases: ["timestamp", "snowflake", "time-stamp", "snow-flake"],
       args: [
         {
           id: "timestamp",
