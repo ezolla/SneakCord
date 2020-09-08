@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 
 class FeesCommand extends Command {
   constructor() {
@@ -15,7 +15,7 @@ class FeesCommand extends Command {
     });
   }
 
-  exec(message: any, args: any) {
+  exec(message: Message, args: any) {
     if (args.price) {
       const results = calculateFees(args.price);
 

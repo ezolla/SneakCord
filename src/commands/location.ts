@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 import nodeFetch from "node-fetch";
 const NodeGeocoder = require("node-geocoder");
 
@@ -37,7 +37,7 @@ class LocationCommand extends Command {
     });
   }
 
-  async exec(message: any, args: any) {
+  async exec(message: Message, args: any) {
     if (args.location) {
       if (countWords(args.location) == 2) {
         const coords = args.location.split(" ");

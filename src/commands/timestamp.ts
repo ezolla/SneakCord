@@ -1,6 +1,6 @@
 // Import
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 
 const discordEpoch = 1420070400000;
 
@@ -17,7 +17,7 @@ class TimestampCommand extends Command {
     });
   }
 
-  exec(message: any, args: any) {
+  exec(message: Message, args: any) {
     if (args.timestamp) {
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")

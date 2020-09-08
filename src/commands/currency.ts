@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 const currencyConverter = require("@techhof-ab/currency-converter");
 
 class CurrencyCommand extends Command {
@@ -24,7 +24,7 @@ class CurrencyCommand extends Command {
     });
   }
 
-  async exec(message: any, args: any) {
+  async exec(message: Message, args: any) {
     if (!(args.from === null && args.to === null && args.amount === null)) {
       const result: any = await getConversion(args.from, args.to, args.amount);
 

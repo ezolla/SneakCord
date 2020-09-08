@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 import fetch from "node-fetch";
 
 class PingCommand extends Command {
@@ -24,7 +24,7 @@ class PingCommand extends Command {
     .setColor("#5761C9")
     .setTitle("Error occurred");
 
-  exec(message: any, args: any) {
+  exec(message: Message, args: any) {
     if (!args) {
       return message.channel.send(this.pingEmbed);
     } else {

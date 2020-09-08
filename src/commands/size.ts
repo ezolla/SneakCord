@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 const converter = require("shoe-size-converter");
 
 class SizeCommand extends Command {
@@ -20,7 +20,7 @@ class SizeCommand extends Command {
     });
   }
 
-  exec(message: any, args: any) {
+  exec(message: Message, args: any) {
     if (args.system && args.size) {
       const results = calculateSizes(args.system, args.size);
 

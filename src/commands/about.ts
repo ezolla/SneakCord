@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 
 class AboutCommand extends Command {
   constructor() {
@@ -19,7 +19,7 @@ class AboutCommand extends Command {
       "https://cdn.discordapp.com/attachments/735349347796910090/740439415326900305/sneakcord-discord.png"
     );
 
-  exec(message: any) {
+  exec(message: Message) {
     return message.channel.send(this.aboutEmbed);
   }
 }

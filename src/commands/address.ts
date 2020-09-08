@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 
 class AddressCommand extends Command {
   constructor() {
@@ -17,7 +17,7 @@ class AddressCommand extends Command {
     });
   }
 
-  exec(message: any, args: any) {
+  exec(message: Message, args: any) {
     if (args.address) {
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")

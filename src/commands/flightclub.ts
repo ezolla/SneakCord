@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 import fetch from "node-fetch";
 import got from "got";
 import Table from "easy-table";
@@ -20,7 +20,7 @@ class FlightclubCommand extends Command {
     });
   }
 
-  async exec(message: any, args: any) {
+  async exec(message: Message, args: any) {
     if (args.search) {
       let link, data, prices: any;
 

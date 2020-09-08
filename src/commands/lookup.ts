@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 import Twit from "twit";
 
 // Initializing Twitter Client
@@ -24,7 +24,7 @@ class LookupCommand extends Command {
     });
   }
 
-  exec(message: any, args: any) {
+  exec(message: Message, args: any) {
     let searchTerm: string;
 
     // Parse search term

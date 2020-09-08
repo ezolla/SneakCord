@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 const paginationEmbed = require("discord.js-pagination");
 
 class HelpCommand extends Command {
@@ -24,7 +24,7 @@ class HelpCommand extends Command {
 
   pages = [this.pageOne, this.pageTwo, this.pageThree];
 
-  exec(message: any) {
+  exec(message: Message) {
     return paginationEmbed(message, this.pages);
   }
 }

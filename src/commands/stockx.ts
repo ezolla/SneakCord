@@ -1,6 +1,6 @@
 // Imports
-import Discord from "discord.js";
 import { Command } from "discord-akairo";
+import Discord, { Message } from "discord.js";
 import fetch from "node-fetch";
 import got from "got";
 import randomUseragent from "random-useragent";
@@ -20,7 +20,7 @@ class StockxCommand extends Command {
     });
   }
 
-  async exec(message: any, args: any) {
+  async exec(message: Message, args: any) {
     if (args.search) {
       let data, prices: any;
 
