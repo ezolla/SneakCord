@@ -18,7 +18,9 @@ class TimestampCommand extends Command {
   }
 
   exec(message: Message, args: any) {
+    // Validating argument
     if (args.timestamp) {
+      // Creating embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .addFields(
@@ -26,12 +28,15 @@ class TimestampCommand extends Command {
           { name: "ISO 8601", value: getIsoTimestamp(args.timestamp) }
         );
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     } else {
+      // Creating embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setTitle("Please give timestamp");
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     }
   }
@@ -40,15 +45,18 @@ class TimestampCommand extends Command {
 module.exports = TimestampCommand;
 export {};
 
+// Converts to UNIX timestamp
 const getUnixTimestamp = (timestamp: any) => {
   const id = BigInt.asUintN(64, timestamp);
   const dateBits = Number(id >> 22n);
 
   const unix = dateBits + discordEpoch;
 
+  // Returning converted timestamp
   return unix.toString();
 };
 
+// Converts to ISO timestamp
 const getIsoTimestamp = (timestamp: any) => {
   const id = BigInt.asUintN(64, timestamp);
   const dateBits = Number(id >> 22n);
@@ -56,5 +64,6 @@ const getIsoTimestamp = (timestamp: any) => {
   const unix = dateBits + discordEpoch;
   const iso = new Date(unix).toISOString();
 
+  // Returning converted timestamp
   return iso;
 };
