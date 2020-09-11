@@ -7,7 +7,7 @@ import randomUseragent from "random-useragent";
 class PingCommand extends Command {
   constructor() {
     super("ping", {
-      aliases: ["ping"],
+      aliases: ["ping", "alive", "bot"],
       args: [
         {
           id: "url",
