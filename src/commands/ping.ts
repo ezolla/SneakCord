@@ -2,6 +2,7 @@
 import { Command } from "discord-akairo";
 import Discord, { Message } from "discord.js";
 import fetch from "node-fetch";
+import randomUseragent from "random-useragent";
 
 class PingCommand extends Command {
   constructor() {
@@ -9,51 +10,57 @@ class PingCommand extends Command {
       aliases: ["ping"],
       args: [
         {
-          id: "site",
+          id: "url",
           type: "string",
         },
       ],
     });
   }
 
-  pingEmbed = new Discord.MessageEmbed()
-    .setColor("#5761C9")
-    .setTitle(":ping_pong: Pong!");
+  async exec(message: Message, args: any) {
+    // Validating url argument
+    if (args.url === undefined) {
+      // Create bot ping embed
+      const embed = new Discord.MessageEmbed()
+        .setColor("#5761C9")
+        .setTitle(":ping_pong: Pong!");
 
-  errorEmbed = new Discord.MessageEmbed()
-    .setColor("#5761C9")
-    .setTitle("Error occurred");
+      // Sending embed to requester channel
+      return message.channel.send(embed);
+    } else if (
+      args.url !== null &&
+      (args.url.startsWith("http") || args.url.contains("www."))
+    ) {
+      // Checking site status
+      const response = await fetch(args.url, {
+        method: "GET",
+        headers: {
+          "User-Agent": randomUseragent.getRandom()!,
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+      });
 
-  exec(message: Message, args: any) {
-    if (!args) {
-      return message.channel.send(this.pingEmbed);
-    } else {
-      // Checking for site argument
-      if (
-        args.site.startsWith("http://") ||
-        args.site.startsWith("https://") ||
-        args.site.contains("www.")
-      ) {
-        // Checking site status
-        fetch(args.site)
-          .then((res: any) => {
-            return message.channel.send(createEmbed(res.status));
-          })
-          .catch(() => {
-            return message.channel.send(this.errorEmbed);
-          });
+      if (response) {
+        // Create website ping embed
+        const embed = new Discord.MessageEmbed()
+          .setColor("#5761C9")
+          .setTitle(`Site status is ${response.status}`);
+
+        // Sending embed to requester channel
+        return message.channel.send(embed);
       }
+    } else {
+      // Create bot ping embed
+      const embed = new Discord.MessageEmbed()
+        .setColor("#5761C9")
+        .setTitle(":ping_pong: Pong!");
+
+      // Sending embed to requester channel
+      return message.channel.send(embed);
     }
   }
 }
 
 module.exports = PingCommand;
 export {};
-
-const createEmbed = (status: number) => {
-  const embed = new Discord.MessageEmbed()
-    .setColor("#5761C9")
-    .setTitle(`Site status is ${status}`);
-
-  return embed;
-};
