@@ -54,7 +54,7 @@ const getData = async (url: string) => {
   const response = await fetch(`${url}.json`, {
     method: "GET",
     headers: {
-      "User-Agent": await randomUseragent.getRandom()!,
+      "User-Agent": randomUseragent.getRandom()!,
       "Content-Type": "application/json",
     },
   });

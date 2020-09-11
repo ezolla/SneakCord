@@ -61,7 +61,7 @@ const getData = async (search: string) => {
     {
       method: "GET",
       headers: {
-        "User-Agent": await randomUseragent.getRandom()!,
+        "User-Agent": randomUseragent.getRandom()!,
         "Content-Type": "application/json",
         Accept: "application/json",
       },

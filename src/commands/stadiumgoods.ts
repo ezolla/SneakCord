@@ -69,7 +69,7 @@ const getLink = async (search: string) => {
     "https://graphql.stadiumgoods.com/graphql",
     {
       headers: {
-        "User-Agent": await randomUseragent.getRandom()!,
+        "User-Agent": randomUseragent.getRandom()!,
         "Content-Type": "application/json",
       },
       body:
@@ -98,7 +98,7 @@ const getData = async (search: string) => {
       headers: {
         Accept: "application/json",
         "Content-Type": "application/x-www-form-urlencoded",
-        "User-Agent": await randomUseragent.getRandom()!,
+        "User-Agent": randomUseragent.getRandom()!,
       },
       body: `{"params":"query=${search}&hitsPerPage=20&facets=*"}`,
     }
@@ -125,7 +125,7 @@ const getPrices = async (link: string) => {
   const response = await fetch(link, {
     method: "POST",
     headers: {
-      "User-Agent": await randomUseragent.getRandom()!,
+      "User-Agent": randomUseragent.getRandom()!,
       "Content-Type": "application/json",
     },
     body: "",

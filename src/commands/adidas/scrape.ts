@@ -92,7 +92,7 @@ const getStock = async (pid: string) => {
       method: "GET",
       headers: {
         Accept: "application/json",
-        "User-Agent": await randomUseragent.getRandom()!,
+        "User-Agent": randomUseragent.getRandom()!,
         "Content-Type": "application/json",
       },
     }

@@ -45,7 +45,7 @@ class StockxCommand extends Command {
       message.channel.send(embed);
     } else {
       // Create error embed
-      const embed = await new Discord.MessageEmbed()
+      const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setTitle("Please give product search");
 
@@ -66,7 +66,7 @@ const getData = async (search: string) => {
     {
       method: "POST",
       headers: {
-        "User-Agent": await randomUseragent.getRandom()!,
+        "User-Agent": randomUseragent.getRandom()!,
         "Content-Type": "application/json",
         Accept: "application/json",
       },
@@ -96,7 +96,7 @@ const getPrices = async (slug: string) => {
     `https://stockx.com/api/products/${slug}?includes=market`,
     {
       headers: {
-        "User-Agent": await randomUseragent.getRandom()!,
+        "User-Agent": randomUseragent.getRandom()!,
         "Content-Type": "application/json",
       },
       http2: true,

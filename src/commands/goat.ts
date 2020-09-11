@@ -68,7 +68,7 @@ const getLink = async (search: string) => {
     {
       method: "POST",
       headers: {
-        "User-Agent": await randomUseragent.getRandom()!,
+        "User-Agent": randomUseragent.getRandom()!,
         "Content-Type": "application/json",
       },
       body: `{"requests":[{"indexName":"product_variants_v2","params":"distinct=true&maxValuesPerFacet=1&page=0&query=${search}&facets=%5B%22instant_ship_lowest_price_cents"}]}`,
@@ -96,7 +96,7 @@ const getData = async (link: string) => {
   const response = await fetch(apiEndpoint, {
     method: "GET",
     headers: {
-      "User-Agent": await randomUseragent.getRandom()!,
+      "User-Agent": randomUseragent.getRandom()!,
       "Content-Type": "application/json",
     },
   });
@@ -131,7 +131,7 @@ const getPrices = async (link: string) => {
   const response = await fetch(apiEndpoint, {
     method: "GET",
     headers: {
-      "User-Agent": await randomUseragent.getRandom()!,
+      "User-Agent": randomUseragent.getRandom()!,
       "Content-Type": "application/json",
     },
   });
