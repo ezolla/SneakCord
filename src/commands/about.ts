@@ -5,7 +5,7 @@ import Discord, { Message } from "discord.js";
 class AboutCommand extends Command {
   constructor() {
     super("about", {
-      aliases: ["about"],
+      aliases: ["about", "sneakcord"],
     });
   }
 
