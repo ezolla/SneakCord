@@ -17,8 +17,10 @@ class FeesCommand extends Command {
 
   exec(message: Message, args: any) {
     if (args.price) {
+      // Calculate fees
       const results = calculateFees(args.price);
 
+      // Creating embed
       const embed = new Discord.MessageEmbed().setColor("#5761C9").addFields(
         {
           name: "Paypal (3.9% + $0.30)",
@@ -62,8 +64,10 @@ class FeesCommand extends Command {
         }
       );
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     } else {
+      // Creating embed
       const embed = new Discord.MessageEmbed().setColor("#5761C9").addFields(
         {
           name: "Paypal",
@@ -107,6 +111,7 @@ class FeesCommand extends Command {
         }
       );
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     }
   }
@@ -115,6 +120,7 @@ class FeesCommand extends Command {
 module.exports = FeesCommand;
 export {};
 
+// Calculates fees
 const calculateFees = (price: any) => {
   // Defining fee rates
   let paypal = price * 0.039 + 0.3;

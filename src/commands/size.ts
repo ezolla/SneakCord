@@ -22,8 +22,10 @@ class SizeCommand extends Command {
 
   exec(message: Message, args: any) {
     if (args.system && args.size) {
+      // Calculating size results
       const results = calculateSizes(args.system, args.size);
 
+      // Structuring embed
       const embed = new Discord.MessageEmbed().setColor("#5761C9").addFields(
         {
           name: "US",
@@ -67,12 +69,15 @@ class SizeCommand extends Command {
         }
       );
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     } else {
+      // Creating embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
-        .setTitle("Must provide system and size");
+        .setTitle("Size help");
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     }
   }
@@ -81,6 +86,7 @@ class SizeCommand extends Command {
 module.exports = SizeCommand;
 export {};
 
+// Calculates size results
 const calculateSizes = (system: string, size: number) => {
   // Desired regions
   const regions = ["us", "ca", "uk", "au", "eu", "br", "cm", "in"];

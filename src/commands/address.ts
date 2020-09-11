@@ -19,16 +19,20 @@ class AddressCommand extends Command {
 
   exec(message: Message, args: any) {
     if (args.address) {
+      // Creating embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setDescription(getAddresses(args.address));
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     } else {
+      // Creating embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setTitle("Please give address");
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     }
   }

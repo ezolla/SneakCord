@@ -39,22 +39,29 @@ class LocationCommand extends Command {
 
   async exec(message: Message, args: any) {
     if (args.location) {
+      // Identifying argument
       if (countWords(args.location) == 2) {
+        // Splitting argument
         const coords = args.location.split(" ");
 
+        // Finding results
         const result = await geocoder.reverse({
           lat: coords[0],
           lon: coords[1],
         });
 
+        // Creating embed
         const embed = new Discord.MessageEmbed()
           .setColor("#5761C9")
           .setTitle(result[0].formattedAddress);
 
+        // Sending embed to requester channel
         return message.channel.send(embed);
       } else {
+        // Finding results
         const result = await geocoder.geocode(args.location);
 
+        // Creating embed
         const embed = new Discord.MessageEmbed().setColor("#5761C9").addFields(
           {
             name: "Latitude",
@@ -68,13 +75,16 @@ class LocationCommand extends Command {
           }
         );
 
+        // Sending embed to requester channel
         return message.channel.send(embed);
       }
     } else {
+      // Creating embed
       const embed = await new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setTitle("Please give address or latitude and longitude");
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     }
   }
@@ -83,6 +93,7 @@ class LocationCommand extends Command {
 module.exports = LocationCommand;
 export {};
 
+// Counts number of words
 const countWords = (str: string) => {
   return str.trim().split(/\s+/).length;
 };

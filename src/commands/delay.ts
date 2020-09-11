@@ -19,8 +19,9 @@ class DelayCommand extends Command {
     });
   }
 
-  exec(message: Message, args: any) {
+  async exec(message: Message, args: any) {
     if (args.tasks && args.proxies) {
+      // Creates embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setTitle(
@@ -30,11 +31,13 @@ class DelayCommand extends Command {
           ).toFixed(0)}ms`
         );
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     } else {
+      // Creates embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
-        .setTitle("Must provide # of tasks and proxies");
+        .setTitle("Delay help");
 
       return message.channel.send(embed);
     }

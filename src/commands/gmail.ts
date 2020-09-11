@@ -16,18 +16,22 @@ class GmailCommand extends Command {
     });
   }
 
-  exec(message: Message, args: any) {
+  async exec(message: Message, args: any) {
     if (args.gmail && args.gmail.includes("@gmail.com")) {
+      // Creating embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setDescription(getGmails(args.gmail));
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     } else {
+      // Creating embed
       const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
-        .setTitle("Please give gmail");
+        .setTitle("Gmail help");
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     }
   }
@@ -36,6 +40,7 @@ class GmailCommand extends Command {
 module.exports = GmailCommand;
 export {};
 
+// Prepares gmails for changing
 const getGmails = (gmail: string) => {
   let result = "";
 
@@ -47,6 +52,7 @@ const getGmails = (gmail: string) => {
   return result;
 };
 
+// Adds dots randomly to gmails
 const addDots = (gmail: any) => {
   var result = "";
 

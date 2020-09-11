@@ -26,18 +26,23 @@ class CurrencyCommand extends Command {
 
   async exec(message: Message, args: any) {
     if (!(args.from === null && args.to === null && args.amount === null)) {
+      // Convert currency
       const result: any = await getConversion(args.from, args.to, args.amount);
 
-      const embed = await new Discord.MessageEmbed()
+      // Creating embed
+      const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setTitle(result.conversion_amount);
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     } else {
-      const embed = await new Discord.MessageEmbed()
+      // Creating embed
+      const embed = new Discord.MessageEmbed()
         .setColor("#5761C9")
         .setTitle("Please give argument");
 
+      // Sending embed to requester channel
       return message.channel.send(embed);
     }
   }
@@ -46,6 +51,7 @@ class CurrencyCommand extends Command {
 module.exports = CurrencyCommand;
 export {};
 
+// Converts currency
 const getConversion = async (from: string, to: string, amount: number) => {
   // Gets current date in 0000-00-00 format
   const date = new Date()

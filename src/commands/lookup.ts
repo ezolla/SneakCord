@@ -35,53 +35,45 @@ class LookupCommand extends Command {
     }
 
     // Search user
-    T.get(
-      "/users/show",
-      { screen_name: searchTerm },
-      (err: any, data: any, _response: any) => {
-        if (!err) {
-          const embed = new Discord.MessageEmbed()
-            .setColor("#5761C9")
-            .setTitle(data.name)
-            .setURL(`https://twitter.com/${searchTerm}`)
-            .setDescription(data.description)
-            .setThumbnail(data.profile_image_url_https);
+    T.get("/users/show", { screen_name: searchTerm }, (err: any, data: any) => {
+      if (!err) {
+        // Creating embed
+        const embed = new Discord.MessageEmbed()
+          .setColor("#5761C9")
+          .setTitle(data.name)
+          .setURL(`https://twitter.com/${searchTerm}`)
+          .setDescription(data.description)
+          .setThumbnail(data.profile_image_url_https);
 
-          // Adding website if available
-          if (data.url) {
-            embed.addField("Website", data.url);
-          }
-
-          // Adding location if availabe
-          if (data.location) {
-            embed.addField("Location", data.location);
-          }
-
-          // Adding created if availabe
-          if (data.created_at) {
-            embed.addField("Created", data.created_at);
-          }
-
-          // Adding followers if available
-          if (data.followers_count) {
-            embed.addField("Followers", data.followers_count);
-          }
-
-          // Adding following if availabe
-          if (data.friends_count) {
-            embed.addField("Following", data.friends_count);
-          }
-
-          message.channel.send(embed);
-        } else {
-          const embed = new Discord.MessageEmbed()
-            .setColor("#5761C9")
-            .setTitle("Error searching user");
-
-          message.channel.send(embed);
+        // Adding data if available
+        if (data.url) {
+          embed.addField("Website", data.url);
         }
+        if (data.location) {
+          embed.addField("Location", data.location);
+        }
+        if (data.created_at) {
+          embed.addField("Created", data.created_at);
+        }
+        if (data.followers_count) {
+          embed.addField("Followers", data.followers_count);
+        }
+        if (data.friends_count) {
+          embed.addField("Following", data.friends_count);
+        }
+
+        // Sending embed to requester channel
+        message.channel.send(embed);
+      } else {
+        // Creating embed
+        const embed = new Discord.MessageEmbed()
+          .setColor("#5761C9")
+          .setTitle("Error searching user");
+
+        // Sending embed to requester channel
+        message.channel.send(embed);
       }
-    );
+    });
   }
 }
 

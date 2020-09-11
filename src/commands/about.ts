@@ -9,6 +9,7 @@ class AboutCommand extends Command {
     });
   }
 
+  // Creating embed
   aboutEmbed = new Discord.MessageEmbed()
     .setColor("#5761C9")
     .setTitle("SneakCord")
@@ -20,6 +21,7 @@ class AboutCommand extends Command {
     );
 
   exec(message: Message) {
+    // Sending embed to requester channel
     return message.channel.send(this.aboutEmbed);
   }
 }
