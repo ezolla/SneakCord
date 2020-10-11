@@ -1,4 +1,4 @@
-// Import
+// Imports
 import { Command } from "discord-akairo";
 import Discord, { Message } from "discord.js";
 

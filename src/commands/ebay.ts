@@ -6,13 +6,8 @@ import randomUseragent from "random-useragent";
 
 class EbayViewCommand extends Command {
   constructor() {
-    super("ebay-view", {
-      category: "flag",
-      description: {
-        content: "Boosts Ebay product views",
-        usage: "view",
-        examples: ["view"],
-      },
+    super("ebay", {
+      aliases: ["ebay", "view", "ebay-view"],
       args: [
         {
           id: "first",
@@ -25,6 +20,7 @@ class EbayViewCommand extends Command {
       ],
     });
   }
+
   async exec(message: Message, args: any) {
     if (args.first && args.second) {
       let result: any = false;
