@@ -10,7 +10,7 @@
   <a aria-label="Follow the Author" href="https://twitter.com/ethanzolla">
     <img alt="" src="https://img.shields.io/badge/Author-blue.svg?style=for-the-badge&logo=Twitter&labelColor=000000&logoWidth=20">
   </a>
-  <a aria-label="License" href="https://google.com">
+  <a aria-label="License" href="https://github.com/ezolla/SneakCord/blob/master/LICENSE">
     <img alt="" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
   </a>
   <a aria-label="Branding Assets" href="https://www.dropbox.com/sh/9xam8gaoxi8c927/AADl0qcmQ8igVT41LuHg3R0ua?dl=0">
