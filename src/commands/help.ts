@@ -36,7 +36,7 @@ class HelpCommand extends Command {
     .addFields(
        { name: 'Supreme Lookbook', value: "Scrapes Supreme's recent lookbook.\n!supreme lookbook" },
       { name: 'Supreme Preview', value: "Scrapes Supreme's latest preview.\n!supreme preview" },
-      { name: 'Address Changer', value: 'Jigs address for multiple shipping technique.\n!address <address>' },
+      { name: 'Address Changer', value: 'Jigs address for multiple shipping technique.\n!address <address>\n**DM Only!**' },
       { name: 'Currency Exchange', value: 'Calculate currency exchange rates.\n!currency <from-region> <to-region> <amount>\nexample: `!currency USD GBP 100`' },
       { name: 'Delay Calculator', value: 'Calculate ideal delay for botting.\n!delay <#-of-tasks> <#-of-proxies>' },
       { name: 'eBay Viewer', value: 'Sends mass requests to eBay post.\n!ebay <product-listing-url>\n**Set to 50, don\'t spam!**' },
