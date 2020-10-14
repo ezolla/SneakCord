@@ -13,7 +13,7 @@
   <a aria-label="License" href="https://google.com">
     <img alt="" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
   </a>
-  <a aria-label="Branding Assets" href="https://www.dropbox.com/sh/9xam8gaoxi8c927/AADl0qcmQ8igVT41LuHg3R0ua?dl=0" target="_blank">
+  <a aria-label="Branding Assets" href="https://www.dropbox.com/sh/9xam8gaoxi8c927/AADl0qcmQ8igVT41LuHg3R0ua?dl=0">
     <img alt="" src="https://img.shields.io/badge/Branding%20Assets-blue.svg?style=for-the-badge&color=5761C9&labelColor=000000&logoWidth=20">
   </a>
 </p>
