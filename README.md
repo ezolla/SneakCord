@@ -13,7 +13,7 @@
   <a aria-label="License" href="https://google.com">
     <img alt="" src="https://img.shields.io/npm/l/next.svg?style=for-the-badge&labelColor=000000">
   </a>
-  <a aria-label="Branding Assets" href="https://google.com">
+  <a aria-label="Branding Assets" href="https://www.dropbox.com/sh/9xam8gaoxi8c927/AADl0qcmQ8igVT41LuHg3R0ua?dl=0" target="_blank">
     <img alt="" src="https://img.shields.io/badge/Branding%20Assets-blue.svg?style=for-the-badge&color=5761C9&labelColor=000000&logoWidth=20">
   </a>
 </p>
@@ -26,11 +26,11 @@ Getting started and familar with the commands of SneakCord is easy. Once invited
 
 ## Contributing
 
-Contributing to SneakCord is welcomed! If you would like to help out by adding a command or fixing a bug please open up a pull request (PR) with the changes. If you want to check to see if anyone is already working on it or for validation, feel free to message and check in with me on [Twitter](https://twitter.com/ethanzolla). 
+Contributing to SneakCord is welcomed! If you would like to help out by adding a command or fixing a bug please open up a pull request (PR) with the changes. If you want to check to see if anyone is already working on it or for validation, feel free to message and check in with me on [Twitter](https://twitter.com/ethanzolla).
 
 ## Authors
 
-* **Ethan Zoller** - [Site](https://www.ethanzoller.com/) / [Twitter](https://twitter.com/ethanzolla)
+- **Ethan Zoller** - [Site](https://www.ethanzoller.com/) / [Twitter](https://twitter.com/ethanzolla)
 
 ## License
 
