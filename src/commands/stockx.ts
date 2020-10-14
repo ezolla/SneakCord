@@ -148,7 +148,7 @@ const createEmbed = (data: any, prices: any) => {
   if (data.colorway) {
     embed.addField("Colorway", data.colorway, true);
   }
-  if (data.traits[3].value) {
+  if (data.traits !== undefined && data.traits[3].value) {
     embed.addField("Release", data.traits[3].value, true);
   }
   if (data.brand) {
