@@ -4,14 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "ts-node src/index.ts",
-    "dev": "nodemon --exec ts-node src/index.ts",
+    "start": "nodemon --exec ts-node src/index.ts",
     "build": "tsc"
   },
   "keywords": [],
   "author": "SneakCord [sneakcord@gmail.com]",
   "license": "ISC",
-  "dependencies": {
+  "devDependencies": {
     "@types/cheerio": "^0.22.21",
     "@types/easy-table": "0.0.32",
     "@types/got": "^9.6.11",
@@ -22,7 +21,10 @@
     "@types/request-promise": "^4.1.46",
     "@types/twit": "^2.2.25",
     "nodemon": "^2.0.4",
-    "typescript": "^3.9.7",
+    "ts-node": "^9.0.0",
+    "typescript": "^3.9.7"
+  },
+  "dependencies": {
     "@techhof-ab/currency-converter": "^2.0.0",
     "cheerio": "^1.0.0-rc.3",
     "discord-akairo": "^8.0.0",
@@ -36,7 +38,6 @@
     "request-promise": "^4.2.6",
     "shoe-size-converter": "0.0.2",
     "twit": "^2.2.11",
-    "ts-node": "^9.0.0",
     "url": "^0.11.0"
   }
 }
