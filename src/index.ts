@@ -1,8 +1,9 @@
-import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo";
+require('dotenv').config()
+import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo"
 
 class MyClient extends AkairoClient {
-  readonly commandHandler: CommandHandler;
-  readonly listenerHandler: ListenerHandler;
+  readonly commandHandler: CommandHandler
+  readonly listenerHandler: ListenerHandler
 
   constructor() {
     super(
@@ -12,27 +13,27 @@ class MyClient extends AkairoClient {
       {
         disableMentions: "everyone",
       }
-    );
+    )
 
     // Command handler
     this.commandHandler = new CommandHandler(this, {
       directory: "./src/commands/",
       prefix: "!",
-    });
+    })
 
     // Listener handler
     this.listenerHandler = new ListenerHandler(this, {
       directory: "./src/listeners/",
-    });
+    })
 
     // Enable handlers
-    this.commandHandler.useListenerHandler(this.listenerHandler);
-    this.listenerHandler.loadAll();
-    this.commandHandler.loadAll();
+    this.commandHandler.useListenerHandler(this.listenerHandler)
+    this.listenerHandler.loadAll()
+    this.commandHandler.loadAll()
   }
 }
 
-const client = new MyClient();
-client.login("NzQwNDI1MjIxODYxMDE1NTcy.Xyo0uQ.kENjG0YDXoqseBZoBcj_iZO6b1E");
+const client = new MyClient()
+client.login(process.env.BOT_TOKEN as string)
 
-export {};
+export { }
