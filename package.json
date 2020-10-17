@@ -1,10 +1,11 @@
 {
-  "name": "core",
+  "name": "sneakcord",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec ts-node src/index.ts",
+    "start": "ts-node src/index.ts",
+    "dev": "nodemon --exec ts-node src/index.ts",
     "build": "tsc"
   },
   "keywords": [],
