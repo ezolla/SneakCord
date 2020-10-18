@@ -12,7 +12,6 @@
   "license": "ISC",
   "devDependencies": {
     "@types/cheerio": "^0.22.21",
-    "@types/dotenv": "^8.2.0",
     "@types/easy-table": "0.0.32",
     "@types/got": "^9.6.11",
     "@types/node-fetch": "^2.5.7",
@@ -31,7 +30,6 @@
     "discord-akairo": "^8.0.0",
     "discord.js": "^12.3.1",
     "discord.js-pagination": "^1.0.2",
-    "dotenv": "^8.2.0",
     "easy-table": "^1.1.1",
     "got": "^11.5.2",
     "node-fetch": "^2.6.1",

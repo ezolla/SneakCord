@@ -1,4 +1,3 @@
-require('dotenv').config()
 import { AkairoClient, CommandHandler, ListenerHandler } from "discord-akairo"
 
 class MyClient extends AkairoClient {
@@ -34,6 +33,6 @@ class MyClient extends AkairoClient {
 }
 
 const client = new MyClient()
-client.login(process.env.BOT_TOKEN as string)
+client.login("NzQwNDI1MjIxODYxMDE1NTcy.Xyo0uQ.m1SHAzKAAlHoJveJDR7t8iPSi_c")
 
 export { }
