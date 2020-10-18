@@ -13,7 +13,7 @@ class ReadyListener extends Listener {
     console.log("SneakCord is running!");
 
     this.client.user!.setStatus("online");
-    this.client.user!.setActivity("@SneakCord on Twitter", {
+    this.client.user!.setActivity("!help | sneakcord.com", {
       type: "PLAYING",
     });
   }
