@@ -33,6 +33,6 @@ class MyClient extends AkairoClient {
 }
 
 const client = new MyClient()
-client.login(process.env.BOT_TOKEN as string)
+client.login("NzQzNTY4OTk2NTMxNTY4Njc1.XzWklw.IdLduLLUyPbXFABNZMoH6hSu3c8")
 
 export { }
