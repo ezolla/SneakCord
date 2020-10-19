@@ -14,7 +14,7 @@ class AboutCommand extends Command {
     .setColor("#5761C9")
     .setTitle("SneakCord")
     .setDescription(
-      "SneakCord is a Discord bot focused on commands for the sneaker reselling community. Holding more than 20 useful commands, hosted 24/7 for free, and open-sourced for custom usage. [Invite SneakCord to you Discord community](https://google.com). \n\n [Website](https://sneakcord.com) - [Github](https://github.com/ezolla/SneakCord)"
+      "SneakCord is a Discord bot focused on commands for the sneaker reselling community. Holding more than 20 useful commands, hosted 24/7 for free, and open-sourced for custom usage. [Invite SneakCord to you Discord community](https://discord.com/oauth2/authorize?client_id=740425221861015572&scope=bot). \n\n [Website](https://sneakcord.com) - [Github](https://github.com/ezolla/SneakCord)"
     )
     .setThumbnail(
       "https://cdn.discordapp.com/attachments/735349347796910090/740439415326900305/sneakcord-discord.png"
