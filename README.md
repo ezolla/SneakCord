@@ -30,7 +30,7 @@ Contributing to SneakCord is welcomed! If you would like to help out by adding a
 
 ## Support
 
-Donations are welcomed! The money will be put into further developing SneakCord or running servers for it.
+Donations are welcomed! The money will be put into further developing SneakCord or running servers for it. If donating, I'd like to personally thank you so leave a connection if wanted.
 
 Paypal: [paypal.me](https://paypal.me/ethanzoller?locale.x=en_US) <br />
 Venmo: @Ethan-Zoller-1 <br />
