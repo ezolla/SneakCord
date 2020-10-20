@@ -17,7 +17,7 @@ const options = {
       },
     });
   },
-  apiKey: "AIzaSyCUi9sWJPGRsHKyI9j2vnIFGbper7oAMkE",
+  apiKey: process.env.GEOCODING_API_KEY as string,
   formatter: null,
 };
 
