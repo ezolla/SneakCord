@@ -24,7 +24,7 @@ class HelpCommand extends Command {
         value:
           'Scrapes shopify product for available information such as keywords.\n!shopify scrape <product-link>',
       },
-      { name: 'Shopify Link Builder', value: 'Builds Shopify cart links using product link.\n!shopify build <store-url> <card-id>' },
+      { name: 'Shopify Link Builder', value: 'Builds Shopify cart links using product link.\n!shopify build <store-url> <cart-id>' },
       { name: 'Supreme Droplist', value: "Scrapes Supreme's upcoming item droplist.\n!supreme droplist" },
       { name: 'Supreme Droptime', value: "Scrapes Supreme's recent drop time.\n!supreme droptime <region>\nexample: `!supreme droptime us`" },
       { name: 'Supreme Left2Drop', value: "Scrapes Supreme's left2drop items.\n!supreme left2drop" },
