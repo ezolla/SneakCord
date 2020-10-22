@@ -34,8 +34,6 @@ Donations are welcomed! The money will be put into further developing SneakCord 
 
 Paypal: [paypal.me](https://paypal.me/ethanzoller?locale.x=en_US) <br />
 Venmo: @Ethan-Zoller-1 <br />
-BTC: bc1qsum3xpj3pu6mnjyhcsn6xmuxcl24x5hffqnh3s <br />
-ETH: 0x15258F165b1F483353dB436415efAde33c8a02a1 <br />
 
 ## Contributors
 
